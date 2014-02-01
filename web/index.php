@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__.'/../vendor/autoload.php';
+require_once __DIR__.'/../vendor/Database.php';
 
 /**********
  * Includes
@@ -21,8 +22,18 @@ $app->get('/', function() use ($app) {
   ));
 });
 
-$app->post('/login', function() use ($app) {
-    // Do login.
+$app->get('/login', function() use ($app) {
+    return $app['twig']->render('login.twig', array(
+        'auth' => FALSE,
+    ));
+});
+
+$app->post('/login', function(Request $request) use ($app) {
+    // Do login. ILL DO IT ~Jamie <3
+    initDatabase($app);
+    $sql = "select * from users where username = ? and password = ?";
+    $post = $app['db']->fetchAssoc($sql, array($request->request->get('username'), $request->request->get('password')));
+    die(print_r($post));
 });
 
 $app->get('/signup',function() use($app) {

@@ -1,6 +1,6 @@
 <?php
 
-function initDatabase($app) {
+function initDatabase(&$app) {
     $host = '127.0.0.1';
     $port = '3306';
     $user = 'MBZ8LgAuwE6fy';
