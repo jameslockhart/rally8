@@ -17,7 +17,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right visible-md visible-lg">
                 <li>
-                    {% if auth %}
+                    {% if auth is defined and auth %}
                         <a href="/dashboard" class="button">Dashboard</a>
                     {% else %}
                     <div class="btn-group">
