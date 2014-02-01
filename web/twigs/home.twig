@@ -1,90 +1,312 @@
 {% extends "main.twig" %}
 {% block content %}
-<div id="tabs">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 hexagons">
-                <div class="hexagon active">
-                    <span class="icon brankic-direction"></span>
+    <div id="hero">
+        <div class="container">
+            <h1 class="hero-text animated fadeInDown">The best interfaces for your web and mobile apps.</h1>
+            <p class="sub-text animated fadeInDown">
+                Using simple HTML markup, get a complete existing website with great design up and running in no time.
+            </p>
+            <div class="cta animated fadeInDown">
+                <a href="features.html" class="button-outline">See the tour</a>
+                <a href="signup.html" class="button">Sign up free</a>
+            </div>
+            <div class="browsers">
+                <img src="images/ss.png" class="img-responsive" alt="screenshot" />
+            </div>
+        </div>
+    </div>
+
+    <div id="features">
+        <div class="container">
+            <div class="row header">
+                <div class="col-md-12">
+                    <h2>Need an easy way to customize your site?</h2>
+                    <p>React is perfect for novice developers and experts alike.</p>
                 </div>
-                <div class="hexagon">
-                    <span class="icon brankic-phone"></span>
+            </div>
+            <div class="row feature">
+                <div class="col-md-6 info">
+                    <h4>You don't need to have great technical experience to use your product.</h4>
+                    <p>
+                        Whether you want to fill this paragraph with some text like I'm doing right now, this place
+                        is perfect to describe some features or anything you want - React has a complete solution for you.
+                    </p>
                 </div>
-                <div class="hexagon">
-                    <span class="icon brankic-lamp3"></span>
+                <div class="col-md-6 image">
+                    <img src="images/feature1.png" class="img-responsive" alt="feature1" />
                 </div>
-                <div class="hexagon">
-                    <span class="icon brankic-pictures3"></span>
+            </div>
+            <div class="divider"></div>
+            <div class="row feature backwards">
+                <div class="col-md-6 info">
+                    <h4>A fully featured well design template that works.</h4>
+                    <p>
+                        You have complete control over the look & feel of your website, we offer the best quality so you
+                        take your site up and running in no time.
+                    </p>
                 </div>
-                <div class="hexagon">
-                    <span class="icon brankic-upload2"></span>
-                </div>
-                <div class="hexagon">
-                    <span class="icon brankic-tools"></span>
+                <div class="col-md-6 image">
+                    <img src="images/feature2.png" class="img-responsive" alt="feature2" />
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="sections">
-                    <div class="section active">
-                        <h4>Build Connections</h4>
-                        <p>
-                            Rally8 connects you to others in your local area that want to accomplish the same goals as
-                            you!
-                        </p>
-                        <p>
-                            Having others collaborate on the same goal as you makes
-                        </p>
+    </div>
+
+    <div id="pricing">
+        <div class="container">
+            <div class="row header">
+                <div class="col-md-12">
+                    <h3>Free trial. No contract. Cancel when you want.</h3>
+                    <p>All plans include a 7-day free trial</p>
+                </div>
+            </div>
+            <div class="row charts">
+                <div class="col-md-4">
+                    <div class="chart first">
+                        <div class="quantity">
+                            <span class="dollar">$</span>
+                            <span class="price">29</span>
+                            <span class="period">/month</span>
+                        </div>
+                        <div class="plan-name">Freelance</div>
+                        <div class="specs">
+                            <div class="spec">
+                                <span class="variable">5</span>
+                                team members
+                            </div>
+                            <div class="spec">
+                                <span class="variable">Digital</span>
+                                recurring billing
+                            </div>
+                            <div class="spec">
+                                <span class="variable">Virtual</span>
+                                online terminal
+                            </div>
+                            <div class="spec">
+                                <span class="variable">10</span>
+                                total products
+                            </div>
+                            <div class="spec">
+                                <span class="variable">1.0%</span>
+                                Transaction fee
+                            </div>
+                        </div>
+                        <a class="btn-signup button-clear" href="signup.html">
+                            <span>Start free trial</span>
+                        </a>
                     </div>
-                    <div class="section">
-                        <h4>Frontend development</h4>
-                        <p>
-                            I love making the stuff, that’s sort of the core of it. I love creating the stuff. It’s so satisfying to get from the beginning to the end, from a shaky nothing idea to something that’s well formed and the audience really likes. It’s like a drug: You keep trying to do it again and again and again. I’ve learned from experience that if you work harder at it, and apply more energy and time to it, and more consistency, you get a better result. It comes from the work.
-                            <br />
-                            This thing will work on any device, it has a very easy to understand documentation and is made with SASS.
-                        </p>
+                </div>
+                <div class="col-md-4">
+                    <div class="chart featured">
+                        <div class="popular">Most popular</div>
+                        <div class="quantity">
+                            <span class="dollar">$</span>
+                            <span class="price">79</span>
+                            <span class="period">/month</span>
+                        </div>
+                        <div class="plan-name">Profesional</div>
+                        <div class="specs">
+                            <div class="spec">
+                                <span class="variable">15</span>
+                                team members
+                            </div>
+                            <div class="spec">
+                                <span class="variable">Digital</span>
+                                recurring billing
+                            </div>
+                            <div class="spec">
+                                <span class="variable">Virtual</span>
+                                online terminal
+                            </div>
+                            <div class="spec">
+                                <span class="variable">15</span>
+                                total products
+                            </div>
+                            <div class="spec">
+                                <span class="variable">0.5%</span>
+                                Transaction fee
+                            </div>
+                        </div>
+                        <a class="btn-signup button-clear" href="signup.html">
+                            <span>Start free trial</span>
+                        </a>
                     </div>
-                    <div class="section">
-                        <h4>Responsive web design</h4>
-                        <p>
-                            We're always happy to offer support if you happen to have any doubts about anything, if you need some new stuff contact us.
-                        </p>
-                        <p>
-                            You have to roll up your sleeves and be a stonecutter before you can become a sculptor – command of craft always precedes art: apprentice, journeyman, master. <br />
-                            It doesn’t matter one damn bit whether fashion is art or not. You don’t question whether an incredible chef is an artist or not – his cakes are delicious and that’s all that matters.
-                        </p>
-                    </div>
-                    <div class="section">
-                        <h4>HTML & CSS Development</h4>
-                        <p>
-                            Well you’re in your little room and you’re working on something good but if it’s really good you’re gonna need a bigger room and when you’re in the bigger room you might not know what to do you might have to think of how you got started sitting in your little room.
-                        </p>
-                        <p>
-                            We're always happy to offer support if you happen to have any doubts about anything, if you need some new stuff contact us.
-                        </p>
-                    </div>
-                    <div class="section">
-                        <h4>Photoshop Mockups</h4>
-                        <p>
-                            I want everything we do to be beautiful. I don’t give a damn whether the client understands that that’s worth anything, or that the client thinks it’s worth anything, or whether it is worth anything. It’s worth it to me. It’s the way I want to live my life. I want to make beautiful things, even if nobody cares.
-                        </p>
-                        <p>
-                            We'll be adding some new stuff to make it even more awesome, if you have any idea please let us know.
-                        </p>
-                    </div>
-                    <div class="section">
-                        <h4>Retina display</h4>
-                        <p>
-                            Functionality is so over-valued in design, and we’ve kept design very small in that way. Functionality is the sheer minimum. If your house burns down, what do you take? The cat in the window that you got from your mother, or the chair you have?
-                        </p>
-                        <p>
-                            Simply are looking to sell digital goods or are interested in drop shipping — Canvas has a complete solution in this.
-                        </p>
+                </div>
+                <div class="col-md-4">
+                    <div class="chart last">
+                        <div class="quantity">
+                            <span class="dollar">$</span>
+                            <span class="price">119</span>
+                            <span class="period">/month</span>
+                        </div>
+                        <div class="plan-name">Premium</div>
+                        <div class="specs">
+                            <div class="spec">
+                                <span class="variable">Unlimited</span>
+                                team members
+                            </div>
+                            <div class="spec">
+                                <span class="variable">Digital</span>
+                                recurring billing
+                            </div>
+                            <div class="spec">
+                                <span class="variable">Virtual</span>
+                                online terminal
+                            </div>
+                            <div class="spec">
+                                <span class="variable">25</span>
+                                total products
+                            </div>
+                            <div class="spec">
+                                <span class="variable">No</span>
+                                Transaction fee
+                            </div>
+                        </div>
+                        <a class="btn-signup button-clear" href="signup.html">
+                            <span>Start free trial</span>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
+    <div id="slider">
+        <div class="container">
+            <div class="row header">
+                <div class="col-md-12">
+                    <h3>Includes all pages that a complete theme should have</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 slide-wrapper">
+                    <div class="slideshow">
+                        <div class="btn-nav prev"></div>
+                        <div class="btn-nav next"></div>
+                        <div class="slide active">
+                            <img src="images/slider/slide3.png" alt="slide3" />
+                        </div>
+                        <div class="slide">
+                            <img src="images/slider/slide4.png" alt="slide4" />
+                        </div>
+                        <div class="slide">
+                            <img src="images/slider/slide1.png" alt="slide1" />
+                        </div>
+                        <div class="slide">
+                            <img src="images/slider/slide5.png" alt="slide5" />
+                        </div>
+                        <div class="slide">
+                            <img src="images/slider/slide2.png" alt="slide2" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="testimonials">
+        <div class="container">
+            <div class="row header">
+                <div class="col-md-12">
+                    <h3>Trusted by a lot businesses around the world:</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="testimonial pull-right">
+                        <div class="quote">
+                            I am just quoting some stuff but I am seriously happy about this product. Has a lot of powerful
+                            features and is so easy to set up, I could stay customizing it day and night, it's just so much fun!
+                            <div class="arrow-down">
+                                <div class="arrow"></div>
+                                <div class="arrow-border"></div>
+                            </div>
+                        </div>
+                        <div class="author">
+                            <img src="images/testimonials/testimonial1.jpg" class="pic" alt="testimonial1" />
+                            <div class="name">John McClane</div>
+                            <div class="company">Microsoft</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="testimonial">
+                        <div class="quote">
+                            This thing is one of those tools that everybody should be using. I really like it and with this ease to use, you can kickstart your projects and apps and just focus on your business!
+                            <div class="arrow-down">
+                                <div class="arrow"></div>
+                                <div class="arrow-border"></div>
+                            </div>
+                        </div>
+                        <div class="author">
+                            <img src="images/testimonials/testimonial2.jpg" class="pic" alt="testimonial2" />
+                            <div class="name">Karen Jones</div>
+                            <div class="company">Pixar Co.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="cta">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-wrapper">
+                        <h4>Ready to start? Create your free account now</h4>
+                        <form class="form-inline" role="form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Your name">
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" placeholder="Password">
+                            </div>
+                            <button type="submit" class="button button-small">Sign Up</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3 copyright">
+                    React LLC 2014
+                </div>
+                <div class="col-sm-6 menu">
+                    <ul>
+                        <li>
+                            <a href="features.html">Features</a>
+                        </li>
+                        <li>
+                            <a href="services.html">Services</a>
+                        </li>
+                        <li>
+                            <a href="pricing.html">Pricing</a>
+                        </li>
+                        <li>
+                            <a href="support.html">Support</a>
+                        </li>
+                        <li>
+                            <a href="blog.html">Blog</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-3 social">
+                    <a href="#">
+                        <img src="images/social/social-tw.png" alt="twitter" />
+                    </a>
+                    <a href="#">
+                        <img src="images/social/social-dbl.png" alt="dribbble" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
