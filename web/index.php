@@ -103,8 +103,9 @@ $app->get('/preferences',function(Request $request) use($app) {
     $sql = "select * from meet_types";
 
     $stuff = array();
-    while($result = $app['db']->fetch($sql)) {
-        $stuff[] = $result;
+    $result = $app['db']->query($sql);
+    while($row = $result->fetch()) {
+        $stuff[] = $row;
     }
 
     return $app['twig']->render('preferences.twig', array(
