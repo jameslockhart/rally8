@@ -40,12 +40,18 @@ $app->post('/login', function(Request $request) use ($app) {
 $app->get('/signup',function() use($app) {
 	return $app['twig']->render('signup.twig');
 });
-$app->post('/register', function() use ($app) {
-    // Do register.
+
+$app->post('/register', function(Request $request) use ($app) {
+    initDatabase($app);
+    // @TODO: Save new user account and automatic log in.
 });
 
-$app->post('/register/check', function() use ($app) {
-    return FALSE;
+$app->post('/register/check', function(Request $request) use ($app) {
+    initDatabase($app);
+    $sql = "select * from users where username = ?";
+    $result = $app['db']->fetchRow($sql, array($request->request->get('username')));
+
+    return empty($result);
 });
 
 /************
