@@ -101,11 +101,14 @@ $app->post('/register/check', function(Request $request) use ($app) {
 $app->get('/preferences',function(Request $request) use($app) {
     init_database($app);
     $sql = "select * from meet_types";
-    $result = $app['db']->fetchAssoc($sql);
+    $stuff = array();
+    while($result = $app['db']->fetchAssoc($sql)) {
+        $stuff[] = $result;
+    }
 
     return $app['twig']->render('preferences.twig', array(
         'auth' => false,
-        'types' => $result
+        'types' => $stuff
     ));
 });
 $app->get('/list',function() use($app) {
