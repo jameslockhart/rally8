@@ -43,8 +43,11 @@ $app->post('/register', function() use ($app) {
     // Do register.
 });
 
-$app->post('/register/check', function() use ($app) {
-    return FALSE;
+$app->post('/register/check', function(Request $request) use ($app) {
+    $sql = "select * from users where username = ?";
+    $result = $app['db']->fetchRow($sql, array($request->request->get('username')));
+
+    return empty($result);
 });
 
 /************
