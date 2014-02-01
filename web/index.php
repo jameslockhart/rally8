@@ -52,7 +52,15 @@ $app->post('/login', function(Request $request) use ($app) {
     if (!empty($result)) {
         session_start();
         $_SESSION['user_id'] = $result['id'];
-        return $app->redirect('/dashboard');
+
+        $sql = "select count(*) as count from users_meet_types where user_id = ?";
+        $result4 = $app['db']->fetchAssoc($sql, array($result['id']));
+
+        if ($result4['count'] == 0) goto a;
+        else goto b;
+
+        a: return $app->redirect('/preferences');
+        b: return $app->redirect('/dashboard');
     } else return false;
 });
 
@@ -71,7 +79,14 @@ $app->post('/signup', function(Request $request) use ($app) {
     $sql = "insert into profiles (user_id, email) values (?, ?)";
     $result3 = $app['db']->executeUpdate($sql, array($result2['id'], $request->request->get('email')));
 
-    return $app->redirect('/dashboard');
+    $sql = "select count(*) as count from users_meet_types where user_id = ?";
+    $result4 = $app['db']->fetchAssoc($sql, $result2['id']);
+
+    if ($result4['count'] == 0) goto a;
+    else goto b;
+
+    a: return $app->redirect('/preferences');
+    b: return $app->redirect('/dashboard');
 });
 
 $app->post('/register/check', function(Request $request) use ($app) {
@@ -92,7 +107,6 @@ $app->get('/list',function() use($app) {
     return $app['twig']->render('list.twig');
     //@todo: send list.
 });
-
 
 /************
  * Do things!
