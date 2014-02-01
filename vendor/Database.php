@@ -1,10 +1,10 @@
 <?php
 
-function initDatabase(&$app) {
+function init_database(&$app) {
     $host = '127.0.0.1';
     $port = '3306';
-    $user = 'MBZ8LgAuwE6fy';
-    $password = 'LuTA3eAwkNCMBk9MW';
+    $user = 'root';
+    $password = '';
     $database = 'rally8';
 
     $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
@@ -17,4 +17,9 @@ function initDatabase(&$app) {
             'port' => $port
         ),
     ));
+}
+
+function hash_password($password) {
+    $salt = '089u fds0[8 f08[ydsa85t$#@^T5423fdsaF$W T^$AGrat43q^lk41yi34kmh,brntwfg bvhdc869435l¬fdtyh=9]p0ui832i   oj';
+    return sha1($salt.$password.$salt);
 }

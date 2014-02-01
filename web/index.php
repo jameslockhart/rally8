@@ -1,10 +1,19 @@
 <?php
 
+/**********
+ * Includes
+ */
 require_once __DIR__.'/../vendor/autoload.php';
 require_once __DIR__.'/../vendor/Database.php';
 
-/**********
- * Includes
+/*********
+ * Uses
+ */
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
+/*********
+ * App Setup
  */
 
 $app = new Silex\Application();
@@ -12,9 +21,6 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
   'twig.path' => __DIR__.'/twigs',
 ));
 $app['debug'] = true;
-
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 /*******
  * Paths
@@ -27,19 +33,27 @@ $app->get('/', function() use ($app) {
   ));
 });
 
-// Login/Register/Reset.
-$app->get('/login', function() use ($app) {
+$app->get('/login', function(Request $request) use ($app) {
     return $app['twig']->render('login.twig', array(
         'auth' => FALSE,
+        'username' => $request->request->get('username')
     ));
 });
 
 $app->post('/login', function(Request $request) use ($app) {
     // Do login. ILL DO IT ~Jamie <3
-    initDatabase($app);
+    init_database($app);
     $sql = "select * from users where username = ? and password = ?";
-    $result = $app['db']->fetchAssoc($sql, array($request->request->get('username'), $request->request->get('password')));
-    return $result;
+    $username = $request->request->get('username');
+    $password = hash_password($request->request->get('password'));
+
+    $result = $app['db']->fetchAssoc($sql, array($username, $password));
+
+    if (!empty($result)) {
+        session_start();
+        $_SESSION['user_id'] = $result['id'];
+        return $app->redirect('/dashboard');
+    } else return false;
 });
 
 $app->get('/signup',function() use($app) {
@@ -68,6 +82,10 @@ $app->get('/preferences',function() use($app) {
 $app->get('/list',function() use($app) {
     return $app['twig']->render('list.twig');
     //@todo: send list.
+});
+
+$app->get('/app',function() use($app) {
+    return $app['twig']->render('app.twig');
 });
 
 /************
