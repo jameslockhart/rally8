@@ -4,7 +4,20 @@
             <a href="/" class="navbar-brand">Rally8</a>
         </div>
         <nav class="navbar-thingy" role="navigation">
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav">
+                <li class="dropdown visible-xs visible-sm">
+                    {% if auth is defined and auth %}
+                        <a href="/dashboard">Dashboard</a>
+                    {% else %}
+                        <div class="btn-group">
+                            <a href="/signup">Sign up free</a>
+                            <a href="/login">Log in</a>
+                        </div>
+                    {% endif %}
+
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right visible-lg visible-md">
                 <li>
                     {% if auth is defined and auth %}
                         <a href="/dashboard" class="button">Dashboard</a>
