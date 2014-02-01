@@ -10,11 +10,11 @@ function initDatabase(&$app) {
     $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
         'db.options' => array(
             'driver' => 'pdo_mysql',
-            'dbname' => $this->$database,
-            'host' => $this->$host,
-            'password' => $this->$password,
-            'user' => $this->$user,
-            'port' => $this->$port
+            'dbname' => $database,
+            'host' => $host,
+            'password' => $password,
+            'user' => $user,
+            'port' => $port
         ),
     ));
 }
