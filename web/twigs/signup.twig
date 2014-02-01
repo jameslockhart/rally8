@@ -57,6 +57,11 @@
         $(function () {
             $(".already-account a").popover();
             $(".already-account a").popover('show');
+            $("#name").focusout(function(){
+                $().ajax('/register/check/',method:'post').complete(function(data){
+			
+		});	
+            });
         });
     </script>
 {% endblock %}
