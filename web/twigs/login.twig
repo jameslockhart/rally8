@@ -1,9 +1,12 @@
-{% extends "main.twig" %}
+{% extends "bluescreen.twig" %}
 {% block content %}
     <div class="container">
         <div class="row header">
             <div class="col-md-12">
-                <h3>Sign in to your account.</h3>
+                <h3 class="logo">
+                    <a href="index0.html">Rally8</a>
+                </h3>
+                <h4>Sign in to your account.</h4>
             </div>
         </div>
         <div class="row">
@@ -12,10 +15,10 @@
                     <div class="formy">
                         <div class="row">
                             <div class="col-md-12">
-                                <form role="form" action="/login" method="post">
+                                <form role="form" method="post">
                                     <div class="form-group">
-                                        <label for="email">Username</label>
-                                        <input type="email" class="form-control" id="email" name="email" />
+                                        <label for="username">Username</label>
+                                        <input type="text" class="form-control" id="username" name="username" />
                                     </div>
                                     <div class="form-group">
                                         <label for="password">Password</label>

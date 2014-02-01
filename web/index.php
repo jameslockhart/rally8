@@ -11,6 +11,10 @@ $app = new Silex\Application();
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
   'twig.path' => __DIR__.'/twigs',
 ));
+$app['debug'] = true;
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /*******
  * Paths
@@ -34,8 +38,8 @@ $app->post('/login', function(Request $request) use ($app) {
     // Do login. ILL DO IT ~Jamie <3
     initDatabase($app);
     $sql = "select * from users where username = ? and password = ?";
-    $post = $app['db']->fetchAssoc($sql, array($request->request->get('username'), $request->request->get('password')));
-    die(print_r($post));
+    $result = $app['db']->fetchAssoc($sql, array($request->request->get('username'), $request->request->get('password')));
+    return $result;
 });
 
 $app->get('/signup',function() use($app) {
