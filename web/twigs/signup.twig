@@ -1,9 +1,10 @@
 {% extends "main.twig" %}
 {% block content %}
-<form role="form">
+<form role="form" action="/signup" method="post">
 	<div class="form-group">
-		<input type="text" id="userName" placeholder="User Name"><br>
-		<input type="password" id="passwod" placeholder="Enter Password">
+		<input type="text" id="userName" placeholder="User Name" class="form-control">
+		<input type="password" id="password" placeholder="Enter Password" class="form-control">
+		<button type=""submit" class="btn btn-def">Submit</button>
 	</div>
 </form>
 {% endblock %}
