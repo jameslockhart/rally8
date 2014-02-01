@@ -4,7 +4,7 @@
         <div class="row header">
             <div class="col-md-12">
                 <h3 class="logo">
-                    <a href="index0.html">Rally8</a>
+                    <a href="/">Rally8</a>
                 </h3>
                 <h4>Sign in to your account.</h4>
             </div>
@@ -15,10 +15,10 @@
                     <div class="formy">
                         <div class="row">
                             <div class="col-md-12">
-                                <form role="form" method="post">
+                                <form role="form" method="post" action="/login">
                                     <div class="form-group">
                                         <label for="username">Username</label>
-                                        <input type="text" class="form-control" id="username" name="username" />
+                                        <input type="text" class="form-control" id="username" name="username" value="{{ username }}" />
                                     </div>
                                     <div class="form-group">
                                         <label for="password">Password</label>
@@ -37,7 +37,7 @@
                 </div>
                 <div class="already-account">
                     Don't have an account?
-                    <a href="signup.html">Create one here</a>
+                    <a href="/signup">Create one here</a>
                 </div>
             </div>
         </div>
