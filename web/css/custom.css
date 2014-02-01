@@ -4,6 +4,10 @@
   src: url('/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('/fonts/glyphicons-halflings-regular.woff') format('woff'), url('/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 
+.glyphicon:empty {
+  width: inherit;
+}
+
 .navbar.normal .navbar-thingy .navbar-nav .btn {
   position: relative;
   top: 17px;
