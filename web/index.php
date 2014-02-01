@@ -60,13 +60,22 @@ $app->get('/signup',function() use($app) {
 	return $app['twig']->render('signup.twig');
 });
 
-$app->post('/register', function(Request $request) use ($app) {
-    initDatabase($app);
-    // @TODO: Save new user account and automatic log in.
+$app->post('/signup', function(Request $request) use ($app) {
+    init_database($app);
+    $sql = "insert into users (username, password) values (?, ?)";
+    $result1 = $app['db']->executeUpdate($sql, array($request->request->get('username'), hash_password($request->request->get('password'))));
+
+    $sql = "select id from users where username = ?";
+    $result2 = $app['db']->fetchAssoc($sql, array($request->request->get('username')));
+
+    $sql = "insert into profiles (user_id, email) values (?, ?)";
+    $result3 = $app['db']->executeUpdate($sql, array($result2['id'], $request->request->get('email')));
+
+    return $app->redirect('/dashboard');
 });
 
 $app->post('/register/check', function(Request $request) use ($app) {
-    initDatabase($app);
+    init_database($app);
     $sql = "select * from users where username = ?";
     $result = $app['db']->fetchRow($sql, array($request->request->get('username')));
 
@@ -84,9 +93,6 @@ $app->get('/list',function() use($app) {
     //@todo: send list.
 });
 
-$app->get('/app',function() use($app) {
-    return $app['twig']->render('app.twig');
-});
 
 /************
  * Do things!

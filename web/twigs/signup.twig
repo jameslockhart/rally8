@@ -1,12 +1,14 @@
-{% extends "main.twig" %}
+{% extends "bluescreen.twig" %}
 {% block content %}
     <div class="container">
         <div class="row header">
             <div class="col-md-12">
-                <h3>Set up your new account today.</h3>
-                <p>
+                <h3 class="logo">
+                    <a href="/">Rally8</a>
+                </h3>
+                <h4>
                     Start finding others in your area to share your goals!
-                </p>
+                </h4>
             </div>
         </div>
         <div class="row">
@@ -17,16 +19,16 @@
                             <div class="col-md-12">
                                 <form role="form" action="/signup" method="post">
                                     <div class="form-group">
-                                        <label for="name">Your name</label>
-                                        <input type="text" class="form-control" id="name" />
+                                        <label for="username">Username</label>
+                                        <input type="text" class="form-control" id="username" name="username" />
                                     </div>
                                     <div class="form-group">
                                         <label for="email">Email address</label>
-                                        <input type="email" class="form-control" id="email" />
+                                        <input type="email" class="form-control" id="email" name="email" />
                                     </div>
                                     <div class="form-group">
                                         <label for="password">Password</label>
-                                        <input type="password" class="form-control" id="password" />
+                                        <input type="password" class="form-control" id="password" name="password" />
                                     </div>
                                     <div class="checkbox">
                                         <label>
