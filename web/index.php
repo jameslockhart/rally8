@@ -29,6 +29,10 @@ $app->post('/register', function() use ($app) {
     // Do register.
 });
 
+$app->post('/register/check', function() use ($app) {
+
+});
+
 /************
  * Do things!
  */
