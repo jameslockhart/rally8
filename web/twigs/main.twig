@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="/css/compiled/theme.css">
     <link rel="stylesheet" type="text/css" href="/css/vendor/brankic.css">
     <link rel="stylesheet" type="text/css" href="/css/vendor/animate.css">
+    <link rel="stylesheet" type="text/css" href="/css/vendor/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="/css/custom.css">
 
     <!-- javascript -->
@@ -21,11 +22,13 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 </head>
-<body id="services">
+<body id="{% block id %}services{% endblock %}">
 {% include 'header.twig' %}
 
 {% block content %}
     Content
 {% endblock %}
+
+{% include 'footer.twig' %}
 </body>
 </html>

@@ -26,6 +26,7 @@ $app['debug'] = true;
  * Paths
  */
 
+// "Static" content.
 $app->get('/', function() use ($app) {
   return $app['twig']->render('home.twig', array(
     'auth' => FALSE,
@@ -60,16 +61,27 @@ $app->get('/signup',function() use($app) {
 });
 
 $app->post('/register', function(Request $request) use ($app) {
-    init_database($app);
+    initDatabase($app);
     // @TODO: Save new user account and automatic log in.
 });
 
 $app->post('/register/check', function(Request $request) use ($app) {
-    init_database($app);
+    initDatabase($app);
     $sql = "select * from users where username = ?";
     $result = $app['db']->fetchRow($sql, array($request->request->get('username')));
 
     return empty($result);
+});
+
+// Set preferences (automatically run on first start).
+$app->get('/preferences',function() use($app) {
+    return $app['twig']->render('preferences.twig', array(
+        'auth' => false
+    ));
+});
+$app->get('/list',function() use($app) {
+    return $app['twig']->render('list.twig');
+    //@todo: send list.
 });
 
 $app->get('/app',function() use($app) {
