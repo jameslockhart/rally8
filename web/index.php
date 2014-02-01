@@ -65,6 +65,10 @@ $app->get('/preferences',function() use($app) {
         'auth' => false
     ));
 });
+$app->get('/list',function() use($app) {
+    return $app['twig']->render('list.twig');
+    //@todo: send list.
+});
 
 /************
  * Do things!
