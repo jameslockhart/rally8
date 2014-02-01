@@ -25,6 +25,9 @@ $app->post('/login', function() use ($app) {
     // Do login.
 });
 
+$app->get('/signup',function() use($app) {
+	return $app['twig']->render('signup.twig');
+});
 $app->post('/register', function() use ($app) {
     // Do register.
 });
