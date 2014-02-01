@@ -61,7 +61,9 @@ $app->post('/register/check', function(Request $request) use ($app) {
 
 // Set preferences (automatically run on first start).
 $app->get('/preferences',function() use($app) {
-    return $app['twig']->render('preferences.twig');
+    return $app['twig']->render('preferences.twig', array(
+        'auth' => false
+    ));
 });
 
 /************
