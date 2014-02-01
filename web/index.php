@@ -98,7 +98,7 @@ $app->post('/register/check', function(Request $request) use ($app) {
 });
 
 // Set preferences (automatically run on first start).
-$app->get('/preferences/{id}',function(Request $request, $id) use($app) {
+$app->get('/preferences',function(Request $request) use($app) {
     init_database($app);
     $sql = "select * from meet_types";
 
@@ -113,6 +113,11 @@ $app->get('/preferences/{id}',function(Request $request, $id) use($app) {
         'types' => $stuff
     ));
 });
+
+$app->get('/preferences/{id}',function(Request $request, $id) use($app) {
+// @todo: save preference.
+});
+
 $app->get('/list',function() use($app) {
     return $app['twig']->render('list.twig');
     //@todo: send list.
