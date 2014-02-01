@@ -16,12 +16,14 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
  * Paths
  */
 
+// "Static" content.
 $app->get('/', function() use ($app) {
   return $app['twig']->render('home.twig', array(
     'auth' => FALSE,
   ));
 });
 
+// Login/Register/Reset.
 $app->get('/login', function() use ($app) {
     return $app['twig']->render('login.twig', array(
         'auth' => FALSE,
@@ -51,6 +53,11 @@ $app->post('/register/check', function(Request $request) use ($app) {
     $result = $app['db']->fetchRow($sql, array($request->request->get('username')));
 
     return empty($result);
+});
+
+// Set preferences (automatically run on first start).
+$app->get('/preferences',function() use($app) {
+    return $app['twig']->render('preferences.twig');
 });
 
 /************
