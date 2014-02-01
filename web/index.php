@@ -33,6 +33,7 @@ $app->post('/register', function() use ($app) {
 });
 
 $app->post('/register/check', function() use ($app) {
+    return FALSE;
 });
 
 /************
