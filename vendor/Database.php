@@ -3,8 +3,8 @@
 function init_database(&$app) {
     $host = '127.0.0.1';
     $port = '3306';
-    $user = 'root';
-    $password = '';
+    $user = 'MBZ8LgAuwE6fy';
+    $password = 'LuTA3eAwkNCMBk9MW';
     $database = 'rally8';
 
     $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
