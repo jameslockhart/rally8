@@ -24,33 +24,20 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-4 topic">
-                <a href="#">
-                    <span class="icon fa fa-trophy"></span>
-                    <strong>Gym Buddy</strong>
-                </a>
-                <p>
-                    Find a gym partner to work out with and keep accountability.
-                </p>
-            </div>
-            <div class="col-sm-4 topic">
-                <a href="#">
-                    <span class="icon glyphicon glyphicon-tree-deciduous"></span>
-                    <strong>Running Mate</strong>
-                </a>
-                <p>
-                    Find someone to run/jog with and keep your exercise interesting.
-                </p>
-            </div>
-            <div class="col-sm-4 topic">
-                <a href="#">
-                    <span class="fa icon fa-coffee"></span>
-                    <strong>Coffee Break</strong>
-                </a>
-                <p>
-                    Wanna grab coffee? Find new friend near you and try a new latte.
-                </p>
-            </div>
+            {% for type in types %}
+                <div class="col-sm-4 topic">
+                    <a href="/preferences/{{ type.id }}">
+                        <span class="icon {{ type.icon_url }}"></span>
+                        <strong>{{ type.name }}</strong>
+                    </a>
+                    <p>
+                        {{ type.description }}
+                    </p>
+                </div>
+
+            {% else %}
+                Something is broken.
+            {% endfor %}
         </div>
     </div>
 </div>
