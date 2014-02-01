@@ -9,18 +9,13 @@
             <a href="/" class="navbar-brand">Rally8</a>
         </div>
         <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
-            <ul class="nav navbar-nav visible-sm visible-xss">
+            <ul class="nav navbar-nav">
                 <li class="dropdown">
-                    {% if auth is defined and auth %}
-                        <a href="/dashboard">Dashboard</a>
-                    {% else %}
-                            <a href="/signup">Sign up free</a>
-                            <a href="/login">Log in</a>
-                    {% endif %}
-
+                    <a href="#">
+                    </a>
                 </li>
             </ul>
-            <ul class="nav navbar-nav navbar-right visible-md visible-lg">
+            <ul class="nav navbar-nav navbar-right">
                 <li>
                     {% if auth is defined and auth %}
                         <a href="/dashboard" class="button">Dashboard</a>
