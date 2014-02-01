@@ -102,9 +102,9 @@ $app->get('/preferences',function(Request $request) use($app) {
     init_database($app);
     $sql = "select * from meet_types";
     $stuff = array();
-    while($result = $app['db']->fetchAssoc($sql)) {
-        $stuff[] = $result;
-    }
+    $result = $app['db']->fetchAssoc($sql);
+    print_r($result);die();
+
 
     return $app['twig']->render('preferences.twig', array(
         'auth' => false,
