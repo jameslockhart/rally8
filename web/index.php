@@ -98,9 +98,14 @@ $app->post('/register/check', function(Request $request) use ($app) {
 });
 
 // Set preferences (automatically run on first start).
-$app->get('/preferences',function() use($app) {
+$app->get('/preferences',function(Request $request) use($app) {
+    init_database($app);
+    $sql = "select * from meet_types";
+    $result = $app['db']->fetchAssoc($sql);
+
     return $app['twig']->render('preferences.twig', array(
-        'auth' => false
+        'auth' => false,
+        'types' => $request
     ));
 });
 $app->get('/list',function() use($app) {
