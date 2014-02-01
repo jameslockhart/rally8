@@ -116,6 +116,10 @@ $app->get('/preferences',function(Request $request) use($app) {
 
 $app->get('/preferences/{id}',function(Request $request, $id) use($app) {
 // @todo: save preference.
+    init_database($app);
+
+    $sql = "insert into profiles (user_id, email) values (?, ?)";
+    $result = $app['db']->executeUpdate($sql, array($result2['id'], $request->request->get('email')));
 });
 
 $app->get('/list',function() use($app) {
