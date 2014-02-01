@@ -105,7 +105,7 @@ $app->get('/preferences',function(Request $request) use($app) {
 
     return $app['twig']->render('preferences.twig', array(
         'auth' => false,
-        'types' => $request
+        'types' => $result
     ));
 });
 $app->get('/list',function() use($app) {
