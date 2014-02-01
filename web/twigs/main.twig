@@ -21,7 +21,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 </head>
-<body id="services">
+<body id="{% block id %}services{% endblock %}">
 {% include 'header.twig' %}
 
 {% block content %}
