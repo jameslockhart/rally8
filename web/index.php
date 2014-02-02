@@ -182,7 +182,18 @@ $app->get('/list',function() use($app) {
 $app->get('/dashboard',function() use($app) {
     if (gate($app)) return gate($app);
 
-    return $app['twig']->render('list.twig');
+    $sql       = "select * from users where id = ?";
+    $user      = $app['db']->fetchAssoc($sql, array($_SESSION['user_id']));
+    $sql       = "select * from profiles where user_id = ?";
+    $profile   = $app['db']->fetchAssoc($sql, array($_SESSION['user_id']));
+    $sql       = "select * from meet_types where user_id = ?";
+    $meet_type = $app['db']->fetchAssoc($sql, array($_SESSION['user_id']));
+
+    return $app['twig']->render('dashboard.twig', array(
+        'user' => $user,
+        'meet_type' => $meet_type,
+        'profile' => $profile,
+    ));
     //@todo: send list.
 });
 
