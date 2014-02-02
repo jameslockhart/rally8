@@ -15,7 +15,7 @@
                     <a href="/preferences" class="btn btn-default"><span class="glyphicon glyphicon-repeat"></span> Change activity</a>
                     <div class="btn-group">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                            <span class="fa fa-users"></span> All Genders <span class="caret"></span>
+                            <span class="{% if gender is A %}fa fa-users{% elseif gender is F %}fa fa-female{% else %}fa fe-male{% endif %}"></span> {{ genders[gender] }} <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="/dashboard/M"><span class="fa fa-male"></span> Male</a></li>

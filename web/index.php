@@ -182,14 +182,23 @@ $app->get('/list',function() use($app) {
 $app->get('/dashboard',function() use($app) {
     if (gate($app)) return gate($app);
     init_database($app);
-    $ranges = array(
-      18,
-      23,
-      28,
-      35,
-      46,
-      55
+    $ages = array(
+      18 => '18-22',
+      23 => '23-27',
+      28 => '28-34',
+      35 => '35-45',
+      46 => '46-54',
+      55 => '55+',
+      'G' => 'Any age',
     );
+    $age = (isset($_SESSION['pref_age'])) ? $_SESSION['pref_age'] : 'G';
+
+    $genders = array(
+        'A' => 'All genders',
+        'M' => 'Male',
+        'F' => 'Female',
+    );
+    $gender = (isset($_SESSION['pref_gender'])) ? $_SESSION['pref_gender'] : 'A';
 
     $sql       = "select * from users where id = ?";
     $user      = $app['db']->fetchAssoc($sql, array($_SESSION['user_id']));
@@ -201,9 +210,13 @@ $app->get('/dashboard',function() use($app) {
     $meet_type = $app['db']->fetchAssoc($sql, array($user_meet['meet_type_id']));
 
     return $app['twig']->render('dashboard.twig', array(
-        'user' => $user,
+        'user'      => $user,
         'meet_type' => $meet_type,
-        'profile' => $profile,
+        'profile'   => $profile,
+        'ages'      => $ages,
+        'age'       => $age,
+        'genders'   => $genders,
+        'gender'    => $gender
     ));
     //@todo: send list.
 });
@@ -218,6 +231,12 @@ $app->get('/dashboard/{thing}', function($thing) use ($app) {
             break;
         case "F":
             $_SESSION['pref_gender'] = 'female';
+            break;
+        case "A":
+            unset($_SESSION['pref_gender']);
+            break;
+        case "G":
+            unset($_SESSION['pref_age']);
             break;
         case "12":
         case "23":
