@@ -247,7 +247,14 @@ $app->get('/inbox',function() use($app) {
     if (gate($app)) return gate($app);
 
     return $app['twig']->render('inbox.twig');
-    //@todo: send list.
+
+});
+
+$app->get('/dashboard/profile',function() use($app) {
+    if (gate($app)) return gate($app);
+
+    return $app['twig']->render('profile.twig');
+
 });
 
 $app->get('/dashboard/{thing}', function($thing) use ($app) {
