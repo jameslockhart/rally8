@@ -182,6 +182,14 @@ $app->get('/list',function() use($app) {
 $app->get('/dashboard',function() use($app) {
     if (gate($app)) return gate($app);
     init_database($app);
+    $ranges = array(
+      18,
+      23,
+      28,
+      35,
+      46,
+      55
+    );
 
     $sql       = "select * from users where id = ?";
     $user      = $app['db']->fetchAssoc($sql, array($_SESSION['user_id']));
@@ -198,6 +206,30 @@ $app->get('/dashboard',function() use($app) {
         'profile' => $profile,
     ));
     //@todo: send list.
+});
+
+$app->get('/dashboard/{thing}', function($thing) use ($app) {
+    if (gate($app)) return gate($app);
+    init_database($app);
+
+    switch ($thing) {
+        case "M":
+            $_SESSION['pref_gender'] = 'male';
+            break;
+        case "F":
+            $_SESSION['pref_gender'] = 'female';
+            break;
+        case "12":
+        case "23":
+        case "28":
+        case "35":
+        case "46":
+        case "55":
+            $_SESSION['pref_age'] = (int) $thing;
+            break;
+    }
+
+    $app->redirect('/dashboard');
 });
 
 /************
