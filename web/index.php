@@ -165,7 +165,7 @@ $app->get('/preferences/{id}',function(Request $request, $id) use($app) {
     $meet_type_id = (int) $id;
     init_database($app);
     $sql = "delete from users_meet_types where user_id = ?";
-    $app['db']->executeUpdate($sql, $user_id);
+    $app['db']->executeUpdate($sql, array($user_id));
     $sql = "insert into users_meet_types (user_id, meet_type_id) values (?, ?)";
     $result = $app['db']->executeUpdate($sql, array($user_id, $meet_type_id));
 
