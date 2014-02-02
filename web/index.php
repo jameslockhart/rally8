@@ -199,6 +199,7 @@ $app->get('/dashboard',function() use($app) {
     $profile   = $app['db']->fetchAssoc($sql, array($_SESSION['user_id']));
     $sql       = "select * from users_meet_types where user_id = ?";
     $user_meet = $app['db']->fetchAssoc($sql, array($_SESSION['user_id']));
+    if (!$user_meet) return $app->redirect('/dashboard/preferences');
     $sql       = "select * from meet_types where id = ?";
     $meet_type = $app['db']->fetchAssoc($sql, array($user_meet['meet_type_id']));
 
