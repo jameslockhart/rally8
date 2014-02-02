@@ -145,7 +145,7 @@ $app->get('/dashboard/history',function() use($app) {
     init_database($app);
 
 
-    $sql = "select distinct(m.id), u1.username as user1, u2.username as user2, mt.name as activity, m.datetime as datetime from matches m join users u1 on u1.id = m.user_1 join users u2 on u2.id = m.user_2 join meet_types mt on mt.id = m.meet_type_id where user_1 = $user_id OR user_2 = $user_id";
+    $sql = "select distinct(m.id), u1.username as user1, u2.username as user2, mt.name as activity, m.datetime as datetime from matches m join users u1 on u1.id = m.user_1 join users u2 on u2.id = m.user_2 join meet_types mt on mt.id = m.meet_types_id where user_1 = $user_id OR user_2 = $user_id";
     $stuff = array();
     $result = $app['db']->query($sql);
     while($row = $result->fetch()) {
@@ -409,6 +409,10 @@ $app->get('/invite/{user_id}/{meet_type_id}', function($user_id, $meet_type_id) 
     init_database($app);
     $sql = "insert into matches (user_1, user_2, meet_type_id,  datetime) values (?, ?, ?, now())";
     $result1 = $app['db']->executeUpdate($sql, array($_SESSION['user_id'], $user_id, $meet_type_id));
+
+    $sql = "insert into conversations (user_1, user_2) values (?, ?)";
+    $result1 = $app['db']->executeUpdate($sql, array($_SESSION['user_id'], $user_id, $meet_type_id));
+
     return $app->redirect('/dashboard');
 });
 
