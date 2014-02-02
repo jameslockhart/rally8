@@ -183,13 +183,13 @@ $app->get('/dashboard',function() use($app) {
     if (gate($app)) return gate($app);
     init_database($app);
     $ages = array(
+      'G' => 'All ages',
       18 => '18-22',
       23 => '23-27',
       28 => '28-34',
       35 => '35-45',
       46 => '46-54',
       55 => '55+',
-      'G' => 'All ages',
     );
     $age = (isset($_SESSION['pref_age'])) ? $_SESSION['pref_age'] : 'G';
 
