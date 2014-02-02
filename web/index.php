@@ -227,10 +227,10 @@ $app->get('/dashboard/{thing}', function($thing) use ($app) {
 
     switch ($thing) {
         case "M":
-            $_SESSION['pref_gender'] = 'male';
+            $_SESSION['pref_gender'] = 'M';
             break;
         case "F":
-            $_SESSION['pref_gender'] = 'female';
+            $_SESSION['pref_gender'] = 'F';
             break;
         case "A":
             unset($_SESSION['pref_gender']);
