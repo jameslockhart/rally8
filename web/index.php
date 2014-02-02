@@ -287,6 +287,17 @@ $app->post('/dashboard/profile', function(Request $request) use ($app) {
         }
     }
 
+    if (isset($_FILES['userfile']['tmp_name'])) {
+        $rand = uniqid($user_id . '_');
+        $ext = end(explode(".", $_FILES['userfile']['name']));
+        if ($ext == "jpg" || $ext == "jpeg" || $ext == "png" || $ext == "gif") {
+            $uploadfile = __DIR__ . "/profile_img/$rand.$ext";
+            move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile);
+            $profile['pic_url'] = "http://rally8.com/profile_img/$rand.$ext";
+        }
+    }
+
+
     $sql = "update profiles set pic_url = ?, bio = ?, liner = ?, email = ?, gender = ?, age = ? where user_id = ?";
     $app['db']->executeUpdate($sql, array($profile['pic_url'], $profile['bio'], $profile['liner'], $profile['email'], $profile['gender'], $profile['age'], $user_id));
 
