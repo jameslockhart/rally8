@@ -86,7 +86,7 @@ $app->post('/login', function(Request $request) use ($app) {
             if ($result4['count'] == 0) goto a;
             else goto b;
 
-            a: return $app->redirect('/preferences');
+            a: return $app->redirect('/dashboard/preferences');
             b: return $app->redirect('/dashboard');
         }
     }
@@ -127,7 +127,7 @@ $app->post('/signup', function(Request $request) use ($app) {
     if ($result4['count'] == 0) goto a;
     else goto b;
 
-    a: return $app->redirect('/preferences');
+    a: return $app->redirect('/dashboard/preferences');
     b: return $app->redirect('/dashboard');
 });
 
@@ -140,7 +140,7 @@ $app->post('/register/check', function(Request $request) use ($app) {
 });
 
 // View preference options.
-$app->get('/preferences',function(Request $request) use($app) {
+$app->get('/dashboard/preferences',function(Request $request) use($app) {
     if (gate($app)) return gate($app);
 
     init_database($app);
@@ -158,7 +158,7 @@ $app->get('/preferences',function(Request $request) use($app) {
 });
 
 // Set preferences.
-$app->get('/preferences/{id}',function(Request $request, $id) use($app) {
+$app->get('/dashboard/preferences/{id}',function(Request $request, $id) use($app) {
     if (gate($app)) return gate($app);
 
     $user_id = (int) $_SESSION['user_id'];
