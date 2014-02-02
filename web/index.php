@@ -268,7 +268,7 @@ $app->post('/dashboard/profile', function(Request $request) use ($app) {
     $user_id = (int) $_SESSION['user_id'];
     $sql     = "select * from profiles where user_id = ?";
     $orig    = $app['db']->fetchAssoc($sql, array($_SESSION['user_id']));
-    $profile = $request->request->get('username');
+    $profile = $request->request->get('profile');
     $profile = array_merge($orig, $profile);
 
     $sql = "update profiles set pic_url = ?, bio = ?, liner = ?, email = ?, gender = ?, age = ?";
