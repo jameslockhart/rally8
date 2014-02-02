@@ -31,7 +31,7 @@
             Pair up with others in your area to achieve your goals together and make new friends.
         </p>
         <div class="cta animated fadeInDown">
-            {% if auth %}
+            {% if auth is defined and auth%}
                 <a href="/dashboard" class="button">Go to my dashboard</a>
             {% else %}
                 <a href="/signup" class="button">Sign up free</a>
