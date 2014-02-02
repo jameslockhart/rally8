@@ -15,11 +15,14 @@
                     <a href="/preferences" class="btn btn-default"><span class="glyphicon glyphicon-repeat"></span> Change activity</a>
                     <div class="btn-group">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                            <span class="{% if gender == 'A' %}fa fa-users{% elseif gender == 'F' %}fa fa-female{% else %}fa fe-male{% endif %}"></span> {{ genders[gender] }} <span class="caret"></span>
+                            <span class="{% if gender == 'A' %}fa fa-users{% elseif gender == 'F' %}fa fa-female{% else %}fa fa-male{% endif %}"></span> {{ genders[gender] }} <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="/dashboard/M"><span class="fa fa-male"></span> Male</a></li>
-                            <li><a href="/dashboard/F"><span class="fa fa-female"></span> Female</a></li>
+                            {% for url, name in genders %}
+                                {%  if url != gender %}
+                                     <li><a href="/dashboard/{{ url }}"><span class="fa fa-male"></span> {{ name }}</a></li>
+                                {% endif %}
+                            {% endfor %}
                         </ul>
                     </div>
                     <div class="btn-group">
