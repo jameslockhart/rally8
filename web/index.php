@@ -149,10 +149,10 @@ $app->get('/preferences',function(Request $request) use($app) {
 });
 
 $app->get('/preferences/{id}',function(Request $request, $id) use($app) {
-// @todo: save preference.
+    session_start()
+    $id = (int) $id;
     init_database($app);
-
-    $sql = "insert into profiles (user_id, email) values (?, ?)";
+    $sql = "insert into profiles (user_id, meet_type_id) values (?, ?)";
     $result = $app['db']->executeUpdate($sql, array($result2['id'], $request->request->get('email')));
 });
 
