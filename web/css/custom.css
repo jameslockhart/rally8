@@ -25,3 +25,8 @@ html, body {height: 100%;}
   font-size: 175px;
   color: #70CBF5;
 }
+
+.navbar-thingy .nav .caret {
+  border-top-color: #fff;
+  border-bottom-color: #fff;
+}
