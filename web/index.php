@@ -22,6 +22,11 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 ));
 $app['debug'] = true;
 
+$filename = __DIR__.preg_replace('#(\?.*)$#', '', $_SERVER['REQUEST_URI']);
+if (php_sapi_name() === 'cli-server' && is_file($filename)) {
+    return false;
+}
+
 /*******
  * Paths
  */
@@ -55,13 +60,42 @@ $app->post('/login', function(Request $request) use ($app) {
 
         $sql = "select count(*) as count from users_meet_types where user_id = ?";
         $result4 = $app['db']->fetchAssoc($sql, array($result['id']));
+        if ($request->request->get('API'))
+        {
+            return "True";
+        }
+        else
+        {
+            if ($result4['count'] == 0) goto a;
+            else goto b;
 
-        if ($result4['count'] == 0) goto a;
-        else goto b;
+            a: return $app->redirect('/preferences');
+            b: return $app->redirect('/dashboard');
+        }
+    } else
+    if ($request->request->get('API'))
+    {
+        return "False";
+    }
+    else
+    {
+        return false; //I know I don't need the braces for one statement after an else, but don't they look a ton neater compared to random dangling else statements?
+    }    
+});
 
-        a: return $app->redirect('/preferences');
-        b: return $app->redirect('/dashboard');
-    } else return false;
+//RESTful login. Uses the sessions, some sort of token would let mobile users hate themselves less in the future. But this will do for now.
+$app->post('/api/login',function(Request $request) use ($app){
+    init_database($app);
+    $sql="select * from users where username = ? and password = ?";
+    $username = $request->request->get('username');
+    $password = hash_password($request->request->get('password')); 
+    $result = $app['db']->fetchAssoc($sql, array($username, $password));
+    if (!empty($result))
+    {
+        session_start();
+        $_SESSION['user_id'] = $result['id'];
+
+    }
 });
 
 $app->get('/signup',function() use($app) {
