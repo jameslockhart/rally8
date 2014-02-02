@@ -9,8 +9,10 @@
                 <li class="dropdown visible-xs visible-sm">
                     {% if auth %}
                         <div class="btn-group">
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                <span class="fa fa-dashboard"></span>Account<span class="caret"></span>
+                            <a href="/dashboard" class="btn btn-primary">Dashboard</a>
+                            <button type="button" class="btn btn-default btn-primary dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
                             </button>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="/dashboard/history"><span class="fa fa-envelope-o"></span> Inbox</a></li>
