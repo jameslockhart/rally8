@@ -181,6 +181,7 @@ $app->get('/list',function() use($app) {
 
 $app->get('/dashboard',function() use($app) {
     if (gate($app)) return gate($app);
+    init_database($app);
 
     $sql       = "select * from users where id = ?";
     $user      = $app['db']->fetchAssoc($sql, array($_SESSION['user_id']));
