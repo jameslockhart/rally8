@@ -145,9 +145,9 @@ $app->get('/dashboard/history',function() use($app) {
     init_database($app);
 
 
-    $sql = "select * from matches where user_1 = ? OR user_2 = ?";
+    $sql = "select distinct(m.id), u1.username as user1, u2.username as user2, mt.name as activity, m.datetime as datetime from matches m join users u1 on u1.id = m.user_1 join users u2 on u2.id = m.user_2 join meet_types mt on mt.id = m.meet_types_id where user_1 = $user_id OR user_2 = $user_id";
     $stuff = array();
-    $result = $app['db']->query($sql, array($user_id, $user_id));
+    $result = $app['db']->query($sql);
     while($row = $result->fetch()) {
         $stuff[] = $row;
     }
@@ -339,9 +339,9 @@ $app->post('/dashboard/profile', function(Request $request) use ($app) {
         $rand = uniqid($user_id . '_');
         $ext = @end(explode(".", $_FILES['photo_upload']['name']));
         if ($ext == "jpg" || $ext == "jpeg" || $ext == "png" || $ext == "gif") {
-            $uploadfile = __DIR__ . "/profile_img/$rand.$ext";
+            $uploadfile = __DIR__ . "/images/users/$rand.$ext";
             move_uploaded_file($_FILES['photo_upload']['tmp_name'], $uploadfile);
-            $profile['pic_url'] = "http://rally8.com/profile_img/$rand.$ext";
+            $profile['pic_url'] = "$rand.$ext";
         }
     }
 
