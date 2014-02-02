@@ -114,7 +114,7 @@ $app->post('/signup', function(Request $request) use ($app) {
     $result3 = $app['db']->executeUpdate($sql, array($result2['id'], $request->request->get('email')));
 
     $sql = "select count(*) as count from users_meet_types where user_id = ?";
-    $result4 = $app['db']->fetchAssoc($sql, $result2['id']);
+    $result4 = $app['db']->fetchAssoc($sql, array($result2['id']));
 
     if ($result4['count'] == 0) goto a;
     else goto b;
@@ -131,7 +131,7 @@ $app->post('/register/check', function(Request $request) use ($app) {
     return empty($result);
 });
 
-// Set preferences (automatically run on first start).
+// View preference options.
 $app->get('/preferences',function(Request $request) use($app) {
     init_database($app);
     $sql = "select * from meet_types";
@@ -148,6 +148,7 @@ $app->get('/preferences',function(Request $request) use($app) {
     ));
 });
 
+// Set preferences.
 $app->get('/preferences/{id}',function(Request $request, $id) use($app) {
     session_start();
     $user_id = (int) $_SESSION['user_id'];
@@ -156,7 +157,7 @@ $app->get('/preferences/{id}',function(Request $request, $id) use($app) {
     $sql = "delete from users_meet_types where user_id = ?";
     $app['db']->executeUpdate($sql, $user_id);
     $sql = "insert into users_meet_types (user_id, meet_type_id) values (?, ?)";
-    $result = $app['db']->executeUpdate($sql, $user_id, $meet_type_id);
+    $result = $app['db']->executeUpdate($sql, array($user_id, $meet_type_id));
 
     $app->redirect('/dashboard');
 });
