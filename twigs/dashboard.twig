@@ -13,6 +13,15 @@
                         You're currently looking for a <b>{{ meet_type.name }}</b>. The results the match your criteria best are listed below.
                     </p>
                     <a href="/preferences" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-repeat"></span> Change activity</a>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <span class="fa fa-users"></span> All Genders <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/dashboard/M"><span class="fa fa-male"></span> Male</a></li>
+                            <li><a href="/dashboard/F"><span class="fe fa-female"></span> Female</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div class="row stats">
