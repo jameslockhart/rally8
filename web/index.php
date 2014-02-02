@@ -177,12 +177,11 @@ $app->get('/dashboard',function() use($app) {
     init_database($app);
     $ages = array(
       'G' => 'All ages',
-      18 => '18-22',
-      23 => '23-27',
-      28 => '28-34',
-      35 => '35-45',
-      46 => '46-54',
-      55 => '55+',
+      18 => '18-27',
+      28 => '28-37',
+      38 => '38-47',
+      48 => '48-57',
+      200 => '58+',
     );
     $age = (isset($_SESSION['pref_age'])) ? $_SESSION['pref_age'] : 'G';
 
@@ -206,12 +205,20 @@ $app->get('/dashboard',function() use($app) {
     $sql       = "select * from meet_types where id = ?";
     $meet_type = $app['db']->fetchAssoc($sql, array($user_meet['meet_type_id']));
 
+    if (isset($_SESSION['pref_age']) && $_SESSION['pref_age'] == 55) $_SESSION['pref_age'] = 200;
+
     // grab matches for this user
+    if (isset($_SESSION['pref_age']))
+        $age_bracket = $_SESSION['pref_age'] + 9;
+
     $sql = "
-    select *, (select count(*) from matches where user_1={$_SESSION['user_id']} and user_2=users.id) as matched
+    select users.id, username, pic_url, bio, liner, interested_in, gender, meet_type_id, age,
+      (select count(*) from matches where user_1={$_SESSION['user_id']} and user_2=users.id) as matched
     from users, profiles, users_meet_types
     where users.id=profiles.user_id
-    and users.id <> {$_SESSION['user_id']}";
+    and users.id <> {$_SESSION['user_id']}".
+        (isset($_SESSION['pref_gender']) ? " and gender = '{$_SESSION['pref_gender']}'" : "").
+        (isset($_SESSION['pref_age']) ? " and age <= {$age_bracket} and age > {$_SESSION['pref_age']}" : "");
 
     $result = $app['db']->query($sql);
 
@@ -301,6 +308,13 @@ $app->get('/mailer', function() use ($app) {
 
     // Send the message
     $result = $mailer->send($message);
+});
+
+$app->get('/invite/{user_id}/{meet_type_id}', function($user_id, $meet_type_id) use ($app) {
+    init_database($app);
+    $sql = "insert into matches (user_1, user_2, meet_type_id,  datetime) values (?, ?, ?, now())";
+    $result1 = $app['db']->executeUpdate($sql, array($_SESSION['user_id'], $user_id, $meet_type_id));
+    return $app->redirect('/dashboard');
 });
 
 /************
