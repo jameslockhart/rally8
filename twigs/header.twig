@@ -26,7 +26,16 @@
             <ul class="nav navbar-nav navbar-right visible-lg visible-md">
                 <li>
                     {% if auth %}
-                        <a href="/dashboard"><button class="button" style="margin-top:10px">Dashboard</button></a>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="fa fa-dashboard"></span> Account<span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="/dashboard/history"><span class="fa fa-envelope-o"></span> Inbox</a></li>
+                                <li><a href="/dashboard/history"><span class="fa fa-calendar"></span> History</a></li>
+                                <li><a href="/dashboard/profile"><span class="fa fa-edit"></span> Profile</a></li>
+                            </ul>
+                        </div>
                     {% else %}
                     <div class="btn-group">
                         <a href="/login"><button class="button" style="margin-top:10px">Log in</button></a>
