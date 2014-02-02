@@ -35,6 +35,14 @@
                     </div>
                 </div>
                 <hr>
+                {% else %}
+                <div class="row">
+                   <div class="col-sm-12">
+                       <div class="well text-center">
+                           It doesn't look like you have any messages right now. Maybe you should <a href="/dashboard">look for matches</a>?
+                       </div>
+                   </div>
+                </div>
             {% endfor %}
         </div>
     </div>
