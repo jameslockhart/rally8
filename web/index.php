@@ -145,9 +145,9 @@ $app->get('/dashboard/history',function() use($app) {
     init_database($app);
 
 
-    $sql = "select * from matches where user_1 = ? OR user_2 = ?";
+    $sql = "select * from matches where user_1 = $user_id OR user_2 = $user_id";
     $stuff = array();
-    $result = $app['db']->query($sql, array($user_id, $user_id));
+    $result = $app['db']->query($sql);
     while($row = $result->fetch()) {
         $stuff[] = $row;
     }
