@@ -110,6 +110,13 @@ $app->post('/signup', function(Request $request) use ($app) {
     $sql = "select id from users where username = ?";
     $result2 = $app['db']->fetchAssoc($sql, array($request->request->get('username')));
 
+    if (!empty($result2))
+    {
+        session_start();
+        $_SESSION['user_id'] = $result2['id'];
+
+    }
+
     $sql = "insert into profiles (user_id, email) values (?, ?)";
     $result3 = $app['db']->executeUpdate($sql, array($result2['id'], $request->request->get('email')));
 
