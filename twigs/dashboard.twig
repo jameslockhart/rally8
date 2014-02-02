@@ -20,7 +20,12 @@
                         <ul class="dropdown-menu" role="menu">
                             {% for url, name in genders %}
                                 {%  if url != gender %}
-                                     <li><a href="/dashboard/{{ url }}"><span class="fa fa-male"></span> {{ name }}</a></li>
+                                     <li>
+                                         <a href="/dashboard/{{ url }}">
+                                             <span class="{% if url == 'A' %}fa fa-users{% elseif url == 'F' %}fa fa-female{% else %}fa fa-male{% endif %}"></span>
+                                             {{ name }}
+                                         </a>
+                                     </li>
                                 {% endif %}
                             {% endfor %}
                         </ul>
