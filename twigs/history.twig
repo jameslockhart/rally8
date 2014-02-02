@@ -28,14 +28,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    {% for row in history %}
+
+                    {% for row in history %} <tr>
                     <td><b>{{ row.user1 }}</b></td>
                     <td><b>{{ row.user2 }}</b></td>
                     <td>{{ row.datetime|date("m/d/Y") }}</td>
                     <td>{{ row.activity }}</td>
-                        {% endfor %}
-                </tr>
+                    </tr> {% endfor %}
+
                 </tbody>
             </table>
         </div>
