@@ -271,8 +271,17 @@ $app->post('/dashboard/profile', function(Request $request) use ($app) {
     $profile = $request->request->get('profile');
     $profile = array_merge($orig, $profile);
 
-    $sql = "update profiles set pic_url = ?, bio = ?, liner = ?, email = ?, gender = ?, age = ?";
-    $app['db']->executeUpdate($sql, array($profile['pic_url'], $profile['bio'], $profile['liner'], $profile['email'], $profile['gender'], $profile['age']));
+    $password  = $request->request->get('password');
+    $password2 = $request->request->get('password2');
+    if (!empty($password) && !empty($password2)) {
+        if ($password == $password2 && strlen($password) > 7) {
+            $sql = "update users set password = ? where id = ?";
+            $app['db']->executeUpdate($sql, array(hash_password($password), $user_id));
+        }
+    }
+
+    $sql = "update profiles set pic_url = ?, bio = ?, liner = ?, email = ?, gender = ?, age = ? where user_id = ?";
+    $app['db']->executeUpdate($sql, array($profile['pic_url'], $profile['bio'], $profile['liner'], $profile['email'], $profile['gender'], $profile['age'], $user_id));
 
     return $app->redirect('/dashboard/profile');
 });
