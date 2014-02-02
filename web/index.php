@@ -27,6 +27,18 @@ if (php_sapi_name() === 'cli-server' && is_file($filename)) {
     return false;
 }
 
+/*********
+ * Globals
+ */
+
+session_start(); // @todo: http://silex.sensiolabs.org/doc/providers/session.html
+
+$app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
+    if (isset($_SESSION['user_id']) && $_SESSION['user_id'] > 0) $twig->addGlobal('auth', 1);
+
+    return $twig;
+}));
+
 /*******
  * Paths
  */
@@ -55,32 +67,21 @@ $app->post('/login', function(Request $request) use ($app) {
     $result = $app['db']->fetchAssoc($sql, array($username, $password));
 
     if (!empty($result)) {
-        session_start();
         $_SESSION['user_id'] = $result['id'];
 
         $sql = "select count(*) as count from users_meet_types where user_id = ?";
         $result4 = $app['db']->fetchAssoc($sql, array($result['id']));
-        if ($request->request->get('API'))
-        {
+        if ($request->request->get('API')) {
             return "True";
-        }
-        else
-        {
+        } else {
             if ($result4['count'] == 0) goto a;
             else goto b;
 
             a: return $app->redirect('/preferences');
             b: return $app->redirect('/dashboard');
         }
-    } else
-    if ($request->request->get('API'))
-    {
-        return "False";
     }
-    else
-    {
-        return false; //I know I don't need the braces for one statement after an else, but don't they look a ton neater compared to random dangling else statements?
-    }    
+    else return ($request->request->get('API')) ? "False" : false;
 });
 
 //RESTful login. Uses the sessions, some sort of token would let mobile users hate themselves less in the future. But this will do for now.
@@ -90,12 +91,7 @@ $app->post('/api/login',function(Request $request) use ($app){
     $username = $request->request->get('username');
     $password = hash_password($request->request->get('password')); 
     $result = $app['db']->fetchAssoc($sql, array($username, $password));
-    if (!empty($result))
-    {
-        session_start();
-        $_SESSION['user_id'] = $result['id'];
-
-    }
+    if (!empty($result)) $_SESSION['user_id'] = $result['id'];
 });
 
 $app->get('/signup',function() use($app) {
@@ -110,12 +106,8 @@ $app->post('/signup', function(Request $request) use ($app) {
     $sql = "select id from users where username = ?";
     $result2 = $app['db']->fetchAssoc($sql, array($request->request->get('username')));
 
-    if (!empty($result2))
-    {
-        session_start();
-        $_SESSION['user_id'] = $result2['id'];
+    if (!empty($result2)) $_SESSION['user_id'] = $result2['id'];
 
-    }
 
     $sql = "insert into profiles (user_id, email) values (?, ?)";
     $result3 = $app['db']->executeUpdate($sql, array($result2['id'], $request->request->get('email')));
@@ -157,7 +149,6 @@ $app->get('/preferences',function(Request $request) use($app) {
 
 // Set preferences.
 $app->get('/preferences/{id}',function(Request $request, $id) use($app) {
-    session_start();
     $user_id = (int) $_SESSION['user_id'];
     $meet_type_id = (int) $id;
     init_database($app);
