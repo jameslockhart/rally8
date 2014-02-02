@@ -238,7 +238,7 @@ $app->get('/dashboard/{thing}', function($thing) use ($app) {
         case "G":
             unset($_SESSION['pref_age']);
             break;
-        case "12":
+        case "18":
         case "23":
         case "28":
         case "35":
