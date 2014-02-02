@@ -411,7 +411,7 @@ $app->get('/invite/{user_id}/{meet_type_id}', function($user_id, $meet_type_id) 
     $result1 = $app['db']->executeUpdate($sql, array($_SESSION['user_id'], $user_id, $meet_type_id));
 
     $sql = "insert into conversations (user_1, user_2) values (?, ?)";
-    $result1 = $app['db']->executeUpdate($sql, array($_SESSION['user_id'], $user_id, $meet_type_id));
+    $result1 = $app['db']->executeUpdate($sql, array($_SESSION['user_id'], $user_id));
 
     return $app->redirect('/dashboard');
 });
