@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 $app = new Silex\Application();
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
-  'twig.path' => __DIR__.'/twigs',
+  'twig.path' => __DIR__.'/../twigs',
 ));
 $app['debug'] = true;
 
