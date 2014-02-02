@@ -252,7 +252,7 @@ $app->get('/inbox',function() use($app) {
 
 $app->get('/dashboard/profile',function() use($app) {
     if (gate($app)) return gate($app);
-    init_database();
+    init_database($app);
     $sql     = "select * from profiles where user_id = ?";
     $profile = $app['db']->fetchAssoc($sql, array($_SESSION['user_id']));
 
