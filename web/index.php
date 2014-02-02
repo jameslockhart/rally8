@@ -413,6 +413,11 @@ $app->get('/invite/{user_id}/{meet_type_id}', function($user_id, $meet_type_id) 
 });
 
 $app->get('/message/{conversation_id}', function($conversation_id) use ($app) {
+    init_database($app);
+
+    $sql = "select * from conversations where id = ?";
+    $conversation = $app['db']->fetchAssoc($sql, array($conversation_id));
+
     $sql = "select * from messages where conversation_id={$conversation_id} order by id desc";
     $messages = array();
     $result = $app['db']->query($sql);
@@ -420,7 +425,35 @@ $app->get('/message/{conversation_id}', function($conversation_id) use ($app) {
         $messages[] = $row;
     }
 
+    $sql = "select * from users,profiles where id = ? and users.id=profiles.user_id";
+    $you = $app['db']->fetchAssoc($sql, array($_SESSION['user_id']));
 
+    $sql = "select * from users,profiles where id = ? and users.id=profiles.user_id";
+    $them = $app['db']->fetchAssoc($sql, array($conversation['user_2']));
+
+    if ($you['pic_url'] == null) {
+        $you['pic_url'] = "default.jpg";
+    }
+    if ($them['pic_url'] == null) {
+        $them['pic_url'] = "default.jpg";
+    }
+
+    return $app['twig']->render('messages.twig', array(
+        'messages' => $messages,
+        'you' => $you,
+        'them' => $them,
+        'conversation_id' => $conversation_id
+    ));
+});
+
+$app->post('/sendmessage/{conversation_id}', function(Request $request, $conversation_id) use ($app) {
+    init_database($app);
+    $message = $request->request->get('message');
+    $sql = "insert into messages (message, datetime, conversation_id, user_id) values ('{$message}', now(), {$conversation_id}, {$_SESSION['user_id']})";
+    $stuff = array();
+    $result = $app['db']->query($sql);
+
+    return $app->redirect('/message/'.$conversation_id);
 });
 
 /************

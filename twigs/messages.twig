@@ -1,0 +1,46 @@
+{% extends "main.twig" %}
+{% block id %}support{% endblock %}
+{% block content %}
+    <div id="browse">
+        <div class="container">
+            {% for message in messages %}
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-2">
+                        {% if message.user_id==you.id %}
+                            <img src="/images/users/{{ you.pic_url }}" alt="pretty thang" class="img-responsive img-circle img-user" />
+                        {% else %}
+                            <img src="/images/users/{{ them.pic_url }}" alt="pretty thang" class="img-responsive img-circle img-user" />
+                        {% endif %}
+                    </div>
+                    <div class="col-sm-8">
+                        {% if message.user_id==you.id %}
+                            <h3>You</h3>
+                        {% else %}
+                            <h3>{{ them.username }}</h3>
+                        {% endif %}
+
+                    {% if message.user_id==you.id %}
+                        <div class="text-right"> {{ message.message }} </div>
+                    {% else %}
+                        <div class="text-left"> {{ message.message }} </div>
+                    {% endif %}
+
+                    </div>
+                </div>
+                <hr>
+            {% endfor %}
+            <div class="row">
+                <form role="form" method="post" action="/sendmessage/{{ conversation_id }}">
+                    <div class="form-group">
+                        <textarea name="message" placeholder="..." class="form-control" rows="5"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button class="button form-control btn-lg" style="line-height: 0.25em;">Send</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-spacer"></div>
+{% endblock %}
