@@ -268,7 +268,7 @@ $app->get('/dashboard/profile',function() use($app) {
     ));
 });
 
-$app->get('/history',function() use($app) {
+$app->get('/dashboard/history',function() use($app) {
     if (gate($app)) return gate($app);
 
     return $app['twig']->render('history.twig');
