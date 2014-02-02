@@ -17,6 +17,9 @@ use Symfony\Component\HttpFoundation\Response;
  */
 
 $app = new Silex\Application();
+$app->register(new Silex\Provider\TwigServiceProvider(), array(
+  'twig.path' => __DIR__.'/../twigs',
+));
 $app['debug'] = true;
 
 $filename = __DIR__.preg_replace('#(\?.*)$#', '', $_SERVER['REQUEST_URI']);
@@ -31,14 +34,15 @@ if (php_sapi_name() === 'cli-server' && is_file($filename)) {
 session_start(); // @todo: http://silex.sensiolabs.org/doc/providers/session.html
 
 $app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
-    if (isset($_SESSION['user_id']) && $_SESSION['user_id'] > 0) $twig->addGlobal('auth', 1);
-    else $twig->addGlobal('auth', 0);
+    if (@$_SESSION['user_id'] > 0) {
+        $twig->addGlobal('auth', 1);
+    } else {
+        $twig->addGlobal('auth', 0);
+    }
 
     return $twig;
 }));
-$app->register(new Silex\Provider\TwigServiceProvider(), array(
-  'twig.path' => __DIR__.'/../twigs',
-));
+
 
 /**
  * Simple function to redirect to login if the user isn't logged in.
