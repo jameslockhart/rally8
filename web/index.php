@@ -139,6 +139,13 @@ $app->post('/register/check', function(Request $request) use ($app) {
     return empty($result);
 });
 
+$app->get('/dashboard/history',function() use($app) {
+    if (gate($app)) return gate($app);
+
+    return $app['twig']->render('history.twig');
+
+});
+
 // View preference options.
 $app->get('/dashboard/preferences',function(Request $request) use($app) {
     if (gate($app)) return gate($app);
@@ -268,12 +275,7 @@ $app->get('/dashboard/profile',function() use($app) {
     ));
 });
 
-$app->get('/dashboard/history',function() use($app) {
-    if (gate($app)) return gate($app);
 
-    return $app['twig']->render('history.twig');
-
-});
 
 $app->post('/dashboard/profile', function(Request $request) use ($app) {
     if (gate($app)) return gate($app);
