@@ -189,7 +189,7 @@ $app->get('/dashboard',function() use($app) {
       35 => '35-45',
       46 => '46-54',
       55 => '55+',
-      'G' => 'Any age',
+      'G' => 'All ages',
     );
     $age = (isset($_SESSION['pref_age'])) ? $_SESSION['pref_age'] : 'G';
 
