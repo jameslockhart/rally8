@@ -33,9 +33,9 @@ if (php_sapi_name() === 'cli-server' && is_file($filename)) {
 
 session_start(); // @todo: http://silex.sensiolabs.org/doc/providers/session.html
 
-    if (@$_SESSION['user_id'] > 0) {
-        $app["twig"]->addGlobal("auth", 1);
-    }
+if (isset($_SESSION['user_id']) && $_SESSION['user_id'] > 0) {
+    $app["twig"]->addGlobal("auth", true);
+}
 
 
 
