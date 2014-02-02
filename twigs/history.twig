@@ -22,6 +22,7 @@
                 <thead>
                 <tr>
                     <th>User</th>
+                    <th></th>
                     <th>Date</th>
                     <th>Activity</th>
                 </tr>
@@ -29,9 +30,10 @@
                 <tbody>
                 <tr>
                     {% for row in history %}
-                    <td><b>Admin</b></td>
-                    <td>Jan 7, 2014</td>
-                    <td>Coffee Break</td>
+                    <td><b>{{ row.user1 }}</b></td>
+                    <td><b>{{ row.user2 }}</b></td>
+                    <td>{{ row.datetime|date("m/d/Y") }}</td>
+                    <td>{{ row.activity }}</td>
                         {% endfor %}
                 </tr>
                 </tbody>
