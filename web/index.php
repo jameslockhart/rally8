@@ -169,7 +169,7 @@ $app->get('/preferences/{id}',function(Request $request, $id) use($app) {
     $sql = "insert into users_meet_types (user_id, meet_type_id) values (?, ?)";
     $result = $app['db']->executeUpdate($sql, array($user_id, $meet_type_id));
 
-    $app->redirect('/dashboard');
+    return $app->redirect('/dashboard');
 });
 
 $app->get('/list',function() use($app) {
