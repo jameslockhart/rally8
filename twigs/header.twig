@@ -7,7 +7,7 @@
         <nav class="navbar-thingy" role="navigation">
             <ul class="nav navbar-nav">
                 <li class="dropdown visible-xs visible-sm">
-                    {% if auth is defined and auth %}
+                    {% if auth %}
                         <a href="/dashboard">Dashboard</a>
                     {% else %}
                         <a href="/login"><button class="button">Log in</button></a>
@@ -16,7 +16,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right visible-lg visible-md">
                 <li>
-                    {% if auth is defined and auth %}
+                    {% if auth %}
                         <a href="/dashboard" class="button">Dashboard</a>
                     {% else %}
                     <div class="btn-group">

@@ -35,6 +35,7 @@ session_start(); // @todo: http://silex.sensiolabs.org/doc/providers/session.htm
 
 $app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
     if (isset($_SESSION['user_id']) && $_SESSION['user_id'] > 0) $twig->addGlobal('auth', 1);
+    else $twig->addGlobal('auth', 0);
 
     return $twig;
 }));
