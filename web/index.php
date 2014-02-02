@@ -263,15 +263,18 @@ $app->get('/dashboard/profile',function() use($app) {
 
 $app->post('/dashboard/profile', function(Request $request) use ($app) {
     if (gate($app)) return gate($app);
+    init_database($app);
 
     $user_id = (int) $_SESSION['user_id'];
-    init_database($app);
-    $sql = "delete from users_meet_types where user_id = ?";
-    $app['db']->executeUpdate($sql, array($user_id));
-    $sql = "insert into users_meet_types (user_id, meet_type_id) values (?, ?)";
-    $result = $app['db']->executeUpdate($sql, array($user_id, $meet_type_id));
+    $sql     = "select * from profiles where user_id = ?";
+    $orig    = $app['db']->fetchAssoc($sql, array($_SESSION['user_id']));
+    $profile = $request->request->get('username');
+    $profile = array_merge($orig, $profile);
 
-    return $app->redirect('/dashboard');
+    $sql = "update profiles set pic_url = ?, bio = ?, liner = ?, email = ?, gender = ?, age = ?";
+    $app['db']->executeUpdate($sql, array($profile['pic_url'], $profile['bio'], $profile['liner'], $profile['email'], $profile['gender'], $profile['age']));
+
+    return $app->redirect('/dashboard/profile');
 });
 
 $app->get('/dashboard/{thing}', function($thing) use ($app) {
