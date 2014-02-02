@@ -8,7 +8,7 @@
             <ul class="nav navbar-nav">
                 <li class="dropdown visible-xs visible-sm">
                     {% if auth %}
-                        <a href="/dashboard">Dashboard</a>
+                        <a href="/dashboard"><button class="button">Dashboard</button></a>
                     {% else %}
                         <a href="/login"><button class="button">Log in</button></a>
                     {% endif %}
@@ -17,7 +17,7 @@
             <ul class="nav navbar-nav navbar-right visible-lg visible-md">
                 <li>
                     {% if auth %}
-                        <a href="/dashboard" class="button">Dashboard</a>
+                        <a href="/dashboard" class="button"><button class="button" style="margin-top:10px">Dashboard</button></a>
                     {% else %}
                     <div class="btn-group">
                         <a href="/login"><button class="button" style="margin-top:10px">Log in</button></a>
