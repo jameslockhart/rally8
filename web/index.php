@@ -216,7 +216,9 @@ $app->get('/dashboard',function() use($app) {
       (select count(*) from matches where user_1={$_SESSION['user_id']} and user_2=users.id) as matched
     from users, profiles, users_meet_types
     where users.id=profiles.user_id
-    and users.id <> {$_SESSION['user_id']}".
+    and users.id <> {$_SESSION['user_id']}
+    and users_meet_types.user_id=users.id
+    and users_meet_types.meet_type_id={$meet_type['id']}".
         (isset($_SESSION['pref_gender']) ? " and gender = '{$_SESSION['pref_gender']}'" : "").
         (isset($_SESSION['pref_age']) ? " and age <= {$age_bracket} and age > {$_SESSION['pref_age']}" : "");
 
@@ -253,7 +255,32 @@ $app->get('/dashboard',function() use($app) {
 $app->get('/inbox',function() use($app) {
     if (gate($app)) return gate($app);
 
-    return $app['twig']->render('inbox.twig');
+    init_database($app);
+    $sql = "select * from conversations, users, profiles where user_2=users.id and profiles.user_id=user_2 and user_1={$_SESSION['user_id']}";
+    $conversations = array();
+    $result = $app['db']->query($sql);
+
+    while($row = $result->fetch()) {
+        if ($row['pic_url'] == null) {
+            $row['pic_url'] = "default.jpg";
+        }
+
+        // get the last message FIX THIS AWFUL IDEA FOR THE LOVE OF CHOCOLATE AND ALL THAT IS PRETTY
+        $message_sql = "select * from messages where conversation_id=? order by id desc limit 0,1";
+        $message = $app['db']->fetchAssoc($message_sql, array($row['id']));
+
+        if (!empty($message)) {
+            $message['no_message'] = 0;
+            $row['message'] = $message;
+        } else {
+            $row['message'] = array('message' => 'No messages! what are you waiting for?', 'no_message' => true);
+        }
+        $conversations[] = $row;
+    }
+
+    return $app['twig']->render('inbox.twig', array(
+        'conversations' => $conversations
+    ));
 
 });
 
@@ -342,6 +369,17 @@ $app->get('/invite/{user_id}/{meet_type_id}', function($user_id, $meet_type_id) 
     $sql = "insert into matches (user_1, user_2, meet_type_id,  datetime) values (?, ?, ?, now())";
     $result1 = $app['db']->executeUpdate($sql, array($_SESSION['user_id'], $user_id, $meet_type_id));
     return $app->redirect('/dashboard');
+});
+
+$app->get('/message/{conversation_id}', function($conversation_id) use ($app) {
+    $sql = "select * from messages where conversation_id={$conversation_id} order by id desc";
+    $messages = array();
+    $result = $app['db']->query($sql);
+    while($row = $result->fetch()) {
+        $messages[] = $row;
+    }
+
+
 });
 
 /************

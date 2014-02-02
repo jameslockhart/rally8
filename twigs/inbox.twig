@@ -18,22 +18,24 @@
     </div>
     <div id="browse">
         <div class="container">
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th>User</th>
-                    <th>Message</th>
-                    <th>Unread</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td><b>Admin</b></td>
-                    <td>Welcome to the site!</td>
-                    <td>*</td>
-                </tr>
-                </tbody>
-            </table>
+            {% for conversation in conversations %}
+                <div class="row {% if  conversation.message.no_message == 0 and conversation.message.read == 0 %} unread-msg {% endif %}">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-2">
+                        <img src="/images/users/{{ conversation.pic_url }}" alt="pretty thang" class="img-responsive img-circle img-user" />
+                    </div>
+                    <div class="col-sm-6">
+                        <h3>{{ conversation.username }}</h3>
+                        <div>
+                            {{ conversation.message.message }}
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <a href="/message/{{ conversation.id }}" class="btn btn-default btn-lg" style="margin-top: 30%;">Write</a>
+                    </div>
+                </div>
+                <hr>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

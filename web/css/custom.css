@@ -39,3 +39,11 @@ html, body {height: 100%;}
     width:100px;
     height:100px;
 }
+
+.unread-msg {
+    background: #F4F7FA;
+    border-bottom: 1px solid #DCE4EC;
+    padding: 8px;
+    border-radius: 4px;
+    opacity: 0.8;
+}
