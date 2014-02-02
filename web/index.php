@@ -187,8 +187,10 @@ $app->get('/dashboard',function() use($app) {
     $user      = $app['db']->fetchAssoc($sql, array($_SESSION['user_id']));
     $sql       = "select * from profiles where user_id = ?";
     $profile   = $app['db']->fetchAssoc($sql, array($_SESSION['user_id']));
-    $sql       = "select * from meet_types where user_id = ?";
-    $meet_type = $app['db']->fetchAssoc($sql, array($_SESSION['user_id']));
+    $sql       = "select * from users_meet_types where user_id = ?";
+    $user_meet = $app['db']->fetchAssoc($sql, array($_SESSION['user_id']));
+    $sql       = "select * from meet_types where id = ?";
+    $meet_type = $app['db']->fetchAssoc($sql, array($user_meet['meet_type_id']));
 
     return $app['twig']->render('dashboard.twig', array(
         'user' => $user,
