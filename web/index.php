@@ -149,11 +149,16 @@ $app->get('/preferences',function(Request $request) use($app) {
 });
 
 $app->get('/preferences/{id}',function(Request $request, $id) use($app) {
-    session_start()
-    $id = (int) $id;
+    session_start();
+    $user_id = (int) $_SESSION['user_id'];
+    $meet_type_id = (int) $id;
     init_database($app);
-    $sql = "insert into profiles (user_id, meet_type_id) values (?, ?)";
-    $result = $app['db']->executeUpdate($sql, array($result2['id'], $request->request->get('email')));
+    $sql = "delete from users_meet_types where user_id = ?";
+    $app['db']->executeUpdate($sql, $user_id);
+    $sql = "insert into users_meet_types (user_id, meet_type_id) values (?, ?)";
+    $result = $app['db']->executeUpdate($sql, $user_id, $meet_type_id);
+
+    $app->redirect('/dashboard');
 });
 
 $app->get('/list',function() use($app) {
