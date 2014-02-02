@@ -27,7 +27,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right visible-lg visible-md">
                 <li>
-                    {% if auth %}
+                    {% if auth is defined and auth %}
                         <div class="btn-group">
                             <a href="/dashboard" class="btn btn-primary btn-lg">Dashboard</a>
                             <button type="button" class="btn btn-default btn-primary btn-lg dropdown-toggle" data-toggle="dropdown">
