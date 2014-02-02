@@ -57,14 +57,11 @@ function gate(&$app) {
 
 // "Static" content.
 $app->get('/', function() use ($app) {
-  return $app['twig']->render('home.twig', array(
-    'auth' => FALSE,
-  ));
+  return $app['twig']->render('home.twig');
 });
 
 $app->get('/login', function(Request $request) use ($app) {
     return $app['twig']->render('login.twig', array(
-        'auth' => FALSE,
         'username' => $request->request->get('username')
     ));
 });
@@ -155,7 +152,6 @@ $app->get('/preferences',function(Request $request) use($app) {
     }
 
     return $app['twig']->render('preferences.twig', array(
-        'auth' => false,
         'types' => $stuff
     ));
 });
