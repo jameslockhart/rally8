@@ -289,7 +289,7 @@ $app->post('/dashboard/profile', function(Request $request) use ($app) {
 
     if (isset($_FILES['photo_upload']['tmp_name'])) {
         $rand = uniqid($user_id . '_');
-        $ext = end(explode(".", $_FILES['photo_upload']['name']));
+        $ext = @end(explode(".", $_FILES['photo_upload']['name']));
         if ($ext == "jpg" || $ext == "jpeg" || $ext == "png" || $ext == "gif") {
             $uploadfile = __DIR__ . "/profile_img/$rand.$ext";
             move_uploaded_file($_FILES['photo_upload']['tmp_name'], $uploadfile);
