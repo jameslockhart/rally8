@@ -139,6 +139,25 @@ $app->post('/register/check', function(Request $request) use ($app) {
     return empty($result);
 });
 
+$app->get('/dashboard/history',function() use($app) {
+    if (gate($app)) return gate($app);
+    $user_id = (int) $_SESSION['user_id'];
+    init_database($app);
+
+
+    $sql = "select * from matches where user_1 = ? OR user_2 = ?";
+    $stuff = array();
+    $result = $app['db']->query($sql, array($user_id, $user_id));
+    while($row = $result->fetch()) {
+        $stuff[] = $row;
+    }
+
+    return $app['twig']->render('history.twig', array(
+      'history' => $stuff
+    ));
+
+});
+
 // View preference options.
 $app->get('/dashboard/preferences',function(Request $request) use($app) {
     if (gate($app)) return gate($app);
@@ -295,6 +314,8 @@ $app->get('/dashboard/profile',function() use($app) {
     ));
 });
 
+
+
 $app->post('/dashboard/profile', function(Request $request) use ($app) {
     if (gate($app)) return gate($app);
     init_database($app);
@@ -305,8 +326,28 @@ $app->post('/dashboard/profile', function(Request $request) use ($app) {
     $profile = $request->request->get('profile');
     $profile = array_merge($orig, $profile);
 
-    $sql = "update profiles set pic_url = ?, bio = ?, liner = ?, email = ?, gender = ?, age = ?";
-    $app['db']->executeUpdate($sql, array($profile['pic_url'], $profile['bio'], $profile['liner'], $profile['email'], $profile['gender'], $profile['age']));
+    $password  = $request->request->get('password');
+    $password2 = $request->request->get('password2');
+    if (!empty($password) && !empty($password2)) {
+        if ($password == $password2 && strlen($password) > 7) {
+            $sql = "update users set password = ? where id = ?";
+            $app['db']->executeUpdate($sql, array(hash_password($password), $user_id));
+        }
+    }
+
+    if (isset($_FILES['photo_upload']['tmp_name'])) {
+        $rand = uniqid($user_id . '_');
+        $ext = @end(explode(".", $_FILES['photo_upload']['name']));
+        if ($ext == "jpg" || $ext == "jpeg" || $ext == "png" || $ext == "gif") {
+            $uploadfile = __DIR__ . "/profile_img/$rand.$ext";
+            move_uploaded_file($_FILES['photo_upload']['tmp_name'], $uploadfile);
+            $profile['pic_url'] = "http://rally8.com/profile_img/$rand.$ext";
+        }
+    }
+
+
+    $sql = "update profiles set pic_url = ?, bio = ?, liner = ?, email = ?, gender = ?, age = ? where user_id = ?";
+    $app['db']->executeUpdate($sql, array($profile['pic_url'], $profile['bio'], $profile['liner'], $profile['email'], $profile['gender'], $profile['age'], $user_id));
 
     return $app->redirect('/dashboard/profile');
 });

@@ -1,0 +1,39 @@
+{% extends "main.twig" %}
+{% block id %}support{% endblock %}
+{% block content %}
+    <div id="header">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>
+                        <span class="fa fa-calendar"></span>
+                        History
+                    </h2>
+                    <p>
+                        Here are all the people you've connected with in the past.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="browse">
+        <div class="container">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Date</th>
+                    <th>Activity</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><b>Admin</b></td>
+                    <td>Jan 7, 2014</td>
+                    <td>Coffee Break</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
