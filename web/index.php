@@ -214,6 +214,13 @@ $app->get('/dashboard',function() use($app) {
     //@todo: send list.
 });
 
+$app->get('/inbox',function() use($app) {
+    if (gate($app)) return gate($app);
+
+    return $app['twig']->render('inbox.twig');
+    //@todo: send list.
+});
+
 $app->get('/dashboard/{thing}', function($thing) use ($app) {
     if (gate($app)) return gate($app);
     init_database($app);
@@ -242,13 +249,6 @@ $app->get('/dashboard/{thing}', function($thing) use ($app) {
     }
 
     return $app->redirect('/dashboard');
-});
-
-$app->get('/dashboard/inbox',function() use($app) {
-    if (gate($app)) return gate($app);
-
-    return $app['twig']->render('inbox.twig');
-    //@todo: send list.
 });
 
 /************
