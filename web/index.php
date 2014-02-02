@@ -17,9 +17,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 
 $app = new Silex\Application();
-$app->register(new Silex\Provider\TwigServiceProvider(), array(
-  'twig.path' => __DIR__.'/../twigs',
-));
 $app['debug'] = true;
 
 $filename = __DIR__.preg_replace('#(\?.*)$#', '', $_SERVER['REQUEST_URI']);
@@ -39,6 +36,9 @@ $app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
 
     return $twig;
 }));
+$app->register(new Silex\Provider\TwigServiceProvider(), array(
+  'twig.path' => __DIR__.'/../twigs',
+));
 
 /**
  * Simple function to redirect to login if the user isn't logged in.
