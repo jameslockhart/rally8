@@ -31,7 +31,12 @@
             Pair up with others in your area to achieve your goals together and make new friends.
         </p>
         <div class="cta animated fadeInDown">
-            <a href="/signup" class="button">Sign up free</a>
+            {% if auth %}
+                <a href="/dashboard" class="button">Go to my deshboard</a>
+            {% else %}
+                <a href="/signup" class="button">Sign up free</a>
+            {% endif %}
+
         </div>
         <div class="browsers">
             <img src="/images/ss.png" class="img-responsive" alt="screenshot" style="width:65%;" />
