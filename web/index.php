@@ -141,7 +141,8 @@ $app->post('/register/check', function(Request $request) use ($app) {
 
 // View preference options.
 $app->get('/preferences',function(Request $request) use($app) {
-    if (gate($app) )return gate($app);
+    if (gate($app)) return gate($app);
+
     init_database($app);
     $sql = "select * from meet_types";
 
@@ -158,7 +159,8 @@ $app->get('/preferences',function(Request $request) use($app) {
 
 // Set preferences.
 $app->get('/preferences/{id}',function(Request $request, $id) use($app) {
-    if (gate($app) )return gate($app);
+    if (gate($app)) return gate($app);
+
     $user_id = (int) $_SESSION['user_id'];
     $meet_type_id = (int) $id;
     init_database($app);
@@ -171,7 +173,15 @@ $app->get('/preferences/{id}',function(Request $request, $id) use($app) {
 });
 
 $app->get('/list',function() use($app) {
-    if (gate($app) )return gate($app);
+    if (gate($app)) return gate($app);
+
+    return $app['twig']->render('list.twig');
+    //@todo: send list.
+});
+
+$app->get('/dashboard',function() use($app) {
+    if (gate($app)) return gate($app);
+
     return $app['twig']->render('list.twig');
     //@todo: send list.
 });

@@ -16,3 +16,7 @@
 html, body {height: 100%;}
 #wrap {min-height: 100%;}
 #footer {margin-top:-102px;}
+
+.navbar-brand {
+  font-size: 36px;
+}
