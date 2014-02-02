@@ -51,120 +51,67 @@
             </div>
             <div class="row stats">
                 <div class="col-sm-3">
-                    <strong>13</strong>
-                    matches
+                    <strong>&nbsp;</strong>
                 </div>
                 <div class="col-sm-3">
-                    <strong>8</strong>
+                    <strong>{{ males }}</strong>
                     male
                 </div>
                 <div class="col-sm-3">
-                    <strong>5</strong>
+                    <strong>{{ females }}</strong>
                     female
                 </div>
                 <div class="col-sm-3">
-                    <strong>207</strong>
+                    <strong>{{ total_matches }}</strong>
                     matches made
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-2">
-                    <img src="/images/testimonials/testimonial1.jpg" alt="testimonial" class="img-responsive img-circle" />
-                </div>
-                <div class="col-sm-6">
-                    <h3>Dude MkDude</h3>
-                    <strong>10km away</strong>
-                    <em>•</em>
-                    <span>Looking for a gym partner</span>
-                    <div>
-                        Hi! I'm a cool guy looking to get ripped with a lady who wants to improve our bodies together.
+            <br>
+
+            {% for match in matches %}
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-2">
+                        <img src="/images/users/{{ match.pic_url }}" alt="pretty thang" class="img-responsive img-circle img-user" />
+                    </div>
+                    <div class="col-sm-6">
+                        <h3>{{ match.username }}</h3>
+                        <strong>close?</strong>
+                        <em>•</em>
+                        <span>{{ match.liner }}</span>
+                        <div>
+                            {{ match.bio }}
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        {%  if match.matched == 0 %}
+                            <a href="/invite/{{ match.id }}/{{ match.meet_type_id }}" class="btn btn-default btn-lg" style="margin-top: 30%;">Invite to {{ meet_type.verb }}</a>
+                        {% else %}
+                            <a href="/message/{{ match.id }}" class="btn btn-default btn-lg" style="margin-top: 30%;">Invited to {{ meet_type.verb }}! <3</a>
+                        {% endif %}
                     </div>
                 </div>
-                <div class="col-sm-4">
-                    <a href="#" class="btn btn-default btn-lg">Invite to {{ meet_type.verb }}</a>
-                </div>
-            </div>
+                <hr>
+            {% endfor %}
+
             <div class="row">
-                <div class="col-sm-2">
-                    <img src="/images/testimonials/testimonial2.jpg" alt="testimonial" class="img-responsive img-circle" />
-                </div>
-                <div class="col-sm-6">
-                    <h3>Dude MkDude</h3>
-                    <strong>10km away</strong>
-                    <em>•</em>
-                    <span>Looking for a gym partner</span>
-                    <div>
-                        Hi! I'm a cool guy looking to get ripped with a lady who wants to improve our bodies together.
+                <div id="cta">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="wrapper clearfix">
+                                    <h4>Invite your friends to Rally8!</h4>
+                                    <a href="/invite" class="button button-small">Invite now</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-sm-4">
-                    <a href="#" class="btn btn-default btn-lg">Invite to {{ meet_type.verb }}</a>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2">
-                    <img src="/images/testimonials/testimonial3.jpg" alt="testimonial" class="img-responsive img-circle" />
-                </div>
-                <div class="col-sm-6">
-                    <h3>Dude MkDude</h3>
-                    <strong>10km away</strong>
-                    <em>•</em>
-                    <span>Looking for a gym partner</span>
-                    <div>
-                        Hi! I'm a cool guy looking to get ripped with a lady who wants to improve our bodies together.
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <a href="#" class="btn btn-default btn-lg">Invite to {{ meet_type.verb }}</a>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2">
-                    <img src="/images/testimonials/testimonial4.jpg" alt="testimonial" class="img-responsive img-circle" />
-                </div>
-                <div class="col-sm-6">
-                    <h3>Dude MkDude</h3>
-                    <strong>10km away</strong>
-                    <em>•</em>
-                    <span>Looking for a gym partner</span>
-                    <div>
-                        Hi! I'm a cool guy looking to get ripped with a lady who wants to improve our bodies together.
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <a href="#" class="btn btn-default btn-lg">Invite to {{ meet_type.verb }}</a>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2">
-                    <img src="/images/testimonials/testimonial5.jpg" alt="testimonial" class="img-responsive img-circle" />
-                </div>
-                <div class="col-sm-6">
-                    <h3>Dude MkDude</h3>
-                    <strong>10km away</strong>
-                    <em>•</em>
-                    <span>Looking for a gym partner</span>
-                    <div>
-                        Hi! I'm a cool guy looking to get ripped with a lady who wants to improve our bodies together.
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <a href="#" class="btn btn-default btn-lg">Invite to {{ meet_type.verb }}</a>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="cta">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="wrapper clearfix">
-                        <h4>Invite your friends to Rally8!</h4>
-                        <a href="/invite" class="button button-small">Invite now</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div class="bottom-spacer"></div>
+
+
 {% endblock %}

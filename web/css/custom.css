@@ -30,3 +30,12 @@ html, body {height: 100%;}
   border-top-color: #fff;
   border-bottom-color: #fff;
 }
+
+.bottom-spacer {
+    margin-top: 140px;
+}
+
+.img-user {
+    width:100px;
+    height:100px;
+}

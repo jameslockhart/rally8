@@ -4,7 +4,7 @@
  * Includes
  */
 require_once __DIR__.'/../vendor/autoload.php';
-require_once __DIR__.'/../vendor/Database.php';
+require_once __DIR__ . '/../vendor/database.php';
 
 /*********
  * Uses
@@ -195,13 +195,38 @@ $app->get('/dashboard',function() use($app) {
 
     $sql       = "select * from users where id = ?";
     $user      = $app['db']->fetchAssoc($sql, array($_SESSION['user_id']));
+
     $sql       = "select * from profiles where user_id = ?";
     $profile   = $app['db']->fetchAssoc($sql, array($_SESSION['user_id']));
+
     $sql       = "select * from users_meet_types where user_id = ?";
     $user_meet = $app['db']->fetchAssoc($sql, array($_SESSION['user_id']));
+
     if (!$user_meet) return $app->redirect('/dashboard/preferences');
     $sql       = "select * from meet_types where id = ?";
     $meet_type = $app['db']->fetchAssoc($sql, array($user_meet['meet_type_id']));
+
+    // grab matches for this user
+    $sql = "
+    select *, (select count(*) from matches where user_1={$_SESSION['user_id']} and user_2=users.id) as matched
+    from users, profiles, users_meet_types
+    where users.id=profiles.user_id
+    and users.id <> {$_SESSION['user_id']}";
+
+    $result = $app['db']->query($sql);
+
+    $females = $males =  0;
+
+    $matches = array();
+    while ($row = $result->fetch()) {
+        if ($row['pic_url'] == null) {
+            $row['pic_url'] = "default.jpg";
+        }
+        $matches[] = $row;
+
+        if ($row['gender'] == 'M') $males++;
+        elseif ($row['gender'] == 'F') $females++;
+    }
 
     return $app['twig']->render('dashboard.twig', array(
         'user'      => $user,
@@ -210,9 +235,12 @@ $app->get('/dashboard',function() use($app) {
         'ages'      => $ages,
         'age'       => $age,
         'genders'   => $genders,
-        'gender'    => $gender
+        'gender'    => $gender,
+        'matches'   => $matches,
+        'males'     => $males,
+        'females'   => $females,
+        'total_matches' => count($matches)
     ));
-    //@todo: send list.
 });
 
 $app->get('/inbox',function() use($app) {
@@ -250,6 +278,29 @@ $app->get('/dashboard/{thing}', function($thing) use ($app) {
     }
 
     return $app->redirect('/dashboard');
+});
+
+$app->get('/mailer', function() use ($app) {
+    require_once '../vendor/swiftmailer/swiftmailer/lib/swift_required.php';
+
+    // Create the Transport
+    $transport = Swift_SmtpTransport::newInstance('', 25)
+        ->setUsername('rally8')
+        ->setPassword('a password')
+    ;
+
+    // Create the Mailer using your created Transport
+    $mailer = Swift_Mailer::newInstance($transport);
+
+    // Create a message
+    $message = Swift_Message::newInstance('Wonderful Subject')
+        ->setFrom(array('noreply@rally8.com' => 'Rally8'))
+        ->setTo(array('lockhart92@gmail.com' => 'James'))
+        ->setBody('You should feel good')
+    ;
+
+    // Send the message
+    $result = $mailer->send($message);
 });
 
 /************
