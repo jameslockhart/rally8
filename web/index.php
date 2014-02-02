@@ -252,9 +252,26 @@ $app->get('/inbox',function() use($app) {
 
 $app->get('/dashboard/profile',function() use($app) {
     if (gate($app)) return gate($app);
+    init_database();
+    $sql     = "select * from profiles where user_id = ?";
+    $profile = $app['db']->fetchAssoc($sql, array($_SESSION['user_id']));
 
-    return $app['twig']->render('profile.twig');
+    return $app['twig']->render('profile.twig', array(
+        'profile' => $profile,
+    ));
+});
 
+$app->post('/dashboard/profile', function(Request $request) use ($app) {
+    if (gate($app)) return gate($app);
+
+    $user_id = (int) $_SESSION['user_id'];
+    init_database($app);
+    $sql = "delete from users_meet_types where user_id = ?";
+    $app['db']->executeUpdate($sql, array($user_id));
+    $sql = "insert into users_meet_types (user_id, meet_type_id) values (?, ?)";
+    $result = $app['db']->executeUpdate($sql, array($user_id, $meet_type_id));
+
+    return $app->redirect('/dashboard');
 });
 
 $app->get('/dashboard/{thing}', function($thing) use ($app) {
