@@ -254,7 +254,34 @@ $app->get('/inbox',function() use($app) {
     if (gate($app)) return gate($app);
 
     return $app['twig']->render('inbox.twig');
-    //@todo: send list.
+
+});
+
+$app->get('/dashboard/profile',function() use($app) {
+    if (gate($app)) return gate($app);
+    init_database($app);
+    $sql     = "select * from profiles where user_id = ?";
+    $profile = $app['db']->fetchAssoc($sql, array($_SESSION['user_id']));
+
+    return $app['twig']->render('profile.twig', array(
+        'profile' => $profile,
+    ));
+});
+
+$app->post('/dashboard/profile', function(Request $request) use ($app) {
+    if (gate($app)) return gate($app);
+    init_database($app);
+
+    $user_id = (int) $_SESSION['user_id'];
+    $sql     = "select * from profiles where user_id = ?";
+    $orig    = $app['db']->fetchAssoc($sql, array($_SESSION['user_id']));
+    $profile = $request->request->get('profile');
+    $profile = array_merge($orig, $profile);
+
+    $sql = "update profiles set pic_url = ?, bio = ?, liner = ?, email = ?, gender = ?, age = ?";
+    $app['db']->executeUpdate($sql, array($profile['pic_url'], $profile['bio'], $profile['liner'], $profile['email'], $profile['gender'], $profile['age']));
+
+    return $app->redirect('/dashboard/profile');
 });
 
 $app->get('/dashboard/{thing}', function($thing) use ($app) {
