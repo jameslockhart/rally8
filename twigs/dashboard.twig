@@ -4,19 +4,15 @@
     <div id="info">
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
-                    <h1>Welcome {{ user.username }}!</h1>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-4 text-center">
                     <i class="heckabig {{ meet_type.icon_url }}"></i>
                 </div>
                 <div class="col-md-8">
+                    <h1>Welcome {{ user.username }}!</h1>
                     <p>
-                        You can now choose those you'd like to invite to join you on your goal.
+                        You're currently looking for a {{ meet_type.name }}. The results the match your criteria best are listed below.
                     </p>
-                    <a href="#" class="join-team button button-small">Close</a>
+                    <a href="/preferences" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-repeat"></span> Change activity</a>
                 </div>
             </div>
             <div class="row stats">
