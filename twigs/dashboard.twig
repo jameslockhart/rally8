@@ -75,7 +75,7 @@
                         <img src="/images/users/{{ match.pic_url }}" alt="pretty thang" class="img-responsive img-circle img-user" />
                     </div>
                     <div class="col-sm-6">
-                        <h3>{{ match.username }} {% if match.age > 18 %}- {{ match.age }}{% endif %}</h3>
+                        <h3>{{ match.username }} {% if match.age is defined and match.age > 18 %}- {{ match.age }}{% endif %}</h3>
                         <strong>Fredericton, NB</strong>
                         <em>•</em>
                         <span>{{ match.liner }}</span>
