@@ -45,9 +45,9 @@ $app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
  */
 function gate(&$app) {
     if (isset($_SESSION['user_id']) && $_SESSION['user_id'] > 0) {
-        return TRUE;
+        return FALSE;
     } else {
-        $app->redirect('/login');
+        return $app->redirect('/login');
     }
 }
 
@@ -144,7 +144,7 @@ $app->post('/register/check', function(Request $request) use ($app) {
 
 // View preference options.
 $app->get('/preferences',function(Request $request) use($app) {
-    gate($app);
+    if (gate($app) )return gate($app);
     init_database($app);
     $sql = "select * from meet_types";
 
@@ -162,7 +162,7 @@ $app->get('/preferences',function(Request $request) use($app) {
 
 // Set preferences.
 $app->get('/preferences/{id}',function(Request $request, $id) use($app) {
-    gate($app);
+    if (gate($app) )return gate($app);
     $user_id = (int) $_SESSION['user_id'];
     $meet_type_id = (int) $id;
     init_database($app);
@@ -175,7 +175,7 @@ $app->get('/preferences/{id}',function(Request $request, $id) use($app) {
 });
 
 $app->get('/list',function() use($app) {
-    gate($app);
+    if (gate($app) )return gate($app);
     return $app['twig']->render('list.twig');
     //@todo: send list.
 });
