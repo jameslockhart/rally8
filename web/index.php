@@ -33,15 +33,10 @@ if (php_sapi_name() === 'cli-server' && is_file($filename)) {
 
 session_start(); // @todo: http://silex.sensiolabs.org/doc/providers/session.html
 
-$app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
     if (@$_SESSION['user_id'] > 0) {
-        $twig->addGlobal('auth', 1);
-    } else {
-        $twig->addGlobal('auth', 0);
+        $app["twig"]->addGlobal("auth", 1);
     }
 
-    return $twig;
-}));
 
 
 /**
