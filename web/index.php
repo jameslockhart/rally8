@@ -229,7 +229,7 @@ $app->get('/dashboard/{thing}', function($thing) use ($app) {
             break;
     }
 
-    $app->redirect('/dashboard');
+    return $app->redirect('/dashboard');
 });
 
 /************
