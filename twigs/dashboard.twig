@@ -12,7 +12,7 @@
                     <p>
                         You're currently looking for a <b>{{ meet_type.name }}</b>. The results the match your criteria best are listed below.
                     </p>
-                    <a href="/preferences" class="btn btn-default"><span class="glyphicon glyphicon-repeat"></span> Change activity</a>
+                    <a href="/dashboard/preferences" class="btn btn-default"><span class="glyphicon glyphicon-repeat"></span> Change activity</a>
                     <div class="btn-group">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                             <span class="{% if gender == 'A' %}fa fa-users{% elseif gender == 'F' %}fa fa-female{% else %}fa fa-male{% endif %}"></span> {{ genders[gender] }} <span class="caret"></span>
