@@ -141,8 +141,20 @@ $app->post('/register/check', function(Request $request) use ($app) {
 
 $app->get('/dashboard/history',function() use($app) {
     if (gate($app)) return gate($app);
+    $user_id = (int) $_SESSION['user_id'];
+    init_database($app);
 
-    return $app['twig']->render('history.twig');
+
+    $sql = "select * from matches where user_1 = ? OR user_2 = ?";
+    $stuff = array();
+    $result = $app['db']->query($sql, array($user_id, $user_id));
+    while($row = $result->fetch()) {
+        $stuff[] = $row;
+    }
+
+    return $app['twig']->render('history.twig', array(
+      'history' => $stuff
+    ));
 
 });
 
